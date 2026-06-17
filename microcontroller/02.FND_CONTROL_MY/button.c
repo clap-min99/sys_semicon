@@ -36,7 +36,7 @@ int get_button(int button_num, int button_pin)
 	//2. 버튼 상태 check
 	if (current_state && button_status[button_num] == BUTTON_RELEASE) // 버튼이 처음 눌려진 상태
 	{
-		_delay_ms(20);	// noise 가 지나가기를 기다림
+		//_delay_ms(20);	// noise 가 지나가기를 기다림
 		button_status[button_num] =  BUTTON_PRESS;
 		return 0;		// 아직은 완전히 눌렀다 뗀 상태가 아님
 	}
@@ -48,7 +48,7 @@ int get_button(int button_num, int button_pin)
 		// 버튼이 이전에 눌려진 상태 + 지금은 떼어진 상태
 		// 다음 버튼을 체크하기 위해 초기화
 		button_status[button_num] = BUTTON_RELEASE;
-		_delay_ms(20);
+		//_delay_ms(20);
 		return 1;		// 완전히 1번 눌렀다 뗀 상태로 인정한다.
 	};
 	
