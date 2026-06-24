@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>초음파 거리 측정</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>초음파 거리 측정</h1>
+    <h2>현재 거리: <span id="dist">-</span></h2>
+    <canvas id="chart" width="800" height="400"></canvas>
+
+    <script>
+        const labels = [];
+        const data = [];
+
+        const chart = new Chart(document.getElementById('chart'), {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: '거리 (cm)',
+                    data: data,
+                    borderColor: 'blue',
+                    tension: 0.3,
+                    fill: false
+                }]
+            },
+            options: {
+                animation: false,
+                scales: {
+                    y: {
+                        min: 0,
+                        max: 400,
+                        title: { display: true, text: '거리 (cm)' }
+                    },
+                    x: {
+                        title: { display: true, text: '시간' }
+                    }
+                }
+            }
+        });
+
+        setInterval(() => {
+            fetch('/distance')
+                .then(res => res.text())
+                .then(raw => {
+                    // "dis: 23cm" 에서 숫자만 추출
+                    const match = raw.match(/\d+/);
+                    if (!match) return;
+                    const value = parseInt(match[0]);
+
+                    const now = new Date().toLocaleTimeString();
+                    document.getElementById('dist').innerText = raw;
+
+                    labels.push(now);
+                    data.push(value);
+
+                    // 최근 30개만 표시
+                    if (labels.length > 30) {
+                        labels.shift();
+                        data.shift();
+                    }
+
+                    chart.update();
+                });
+        }, 500);
+    </script>
+</body>
+</html>
