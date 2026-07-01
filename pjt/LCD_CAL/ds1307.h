@@ -1,13 +1,9 @@
 ﻿///*
  //* ds1307.h
  //*
- //* Created: 2026-07-01 오전 11:51:19
+ //* Created: 2026-07-01 오전 9:51:51
  //*  Author: kccistc
  //*/ 
-//
-//
-//#ifndef DS1307_H_
-//#define DS1307_H_
 //
 ///*
 	//----- HW -----
@@ -56,38 +52,29 @@
 ///* Register Address */
 //#define DS1307_SEC     0x00
 //#define DS1307_MIN     0x01
-//#define DS1307_HOURS   0x02
+//#define DS1307_HOUR    0x02
 //#define DS1307_DAY     0x03
 //#define DS1307_DATE    0x04
 //#define DS1307_MONTH   0x05
 //#define DS1307_YEAR    0x06
 //#define DS1307_CTRL    0x07
 //
-//#define DS1307_DDR		DDRF
-//#define DS1307_CLK_PORT	PORTF
+//#define DS1307_DDR		DDRD
+//#define DS1307_PORT		PORTD	
+//#define DS1307_PIN		PIND
 //
-//#define DS1307_DAT_PORT	PORTF
-//#define DS1307_DAT_PIN	PINF
 //
-//#define DS1307_RST_PORT	PORTF
-//
-//#define DS1307_CLK	0	//0	번핀
-//#define DS1307_DAT	1
-//#define DS1307_RST	2
+//#define DS1307_SCL	0	//0	번핀
+//#define DS1307_SDA	1
 //
 //typedef struct _ds1307
 //{
 	//uint8_t seconds;
 	//uint8_t minutes;
 	//uint8_t hours;
+	//uint8_t dayofweek;
 	//uint8_t date;
 	//uint8_t month;
-	//uint8_t dayofweek;
 	//uint8_t year;
-	//uint8_t ampm;
-	//uint8_t hourmode;
+	//uint8_t ctrl;
 //} t_ds1307;
-//
-//
-//
-//#endif /* DS1307_H_ */

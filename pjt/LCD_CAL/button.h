@@ -23,12 +23,16 @@
 #define BUTTON2PIN 5		// PORTD.5
 #define BUTTON3PIN 6		// PORTD.6
 
+#define BUTTON4PIN 7		// PORTD.7
+
 #define BUTTON0 0			// PORTD.3의 가상 index (software number)
 #define BUTTON1 1			// PORTD.4의 가상 index (software number)
 #define BUTTON2 2			// PORTD.5의 가상 index (software number)
 #define BUTTON3 3			// PORTD.6의 가상 index (software number)
 
-#define BUTTON_NUMBER 4		// 버튼의 갯수
+#define BUTTON4 4			// PORTD.2의 가상 index (software number) - CAL/CLOCK 모드 전환
+
+#define BUTTON_NUMBER 5		// 버튼의 갯수
 
 #define BUTTON_PRESS 1		// 버튼을 누르면 high(active-high)
 #define BUTTON_RELEASE 0	// 버튼을 땐 상태(low)

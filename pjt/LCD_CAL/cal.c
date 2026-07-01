@@ -21,6 +21,10 @@ static uint8_t check_parens(char *expr);
 void cal_main(void);
 void cal_input(t_cal *c, uint8_t key);
 void cal_reset(t_cal *c);
+void cal_input(t_cal *c, uint8_t key);
+void cal_reset(t_cal *c);
+void cal_redraw(t_cal *c);   // CLOCK 모드에서 CAL 모드로 돌아올 때 화면 다시 그리기
+
 int32_t cal_evaluate(char *expr);   
 
 
@@ -201,6 +205,16 @@ void cal_reset(t_cal *c)
 	c->idx = 0;
 	printf("CLEAR\n");
 	lcd_clear();
+}
+
+// CLOCK 모드에서 CAL 모드로 돌아올 때, 현재 입력 버퍼 + 마지막 결과를 화면에 다시 그림
+void cal_redraw(t_cal *c)
+{
+	lcd_show_expr(c);
+	if (last_valid)
+	{
+		lcd_show_result(last_result);
+	}
 }
 
 void cal_input(t_cal *c, uint8_t key)

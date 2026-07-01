@@ -30,10 +30,15 @@ extern void lcd_goto_xy(uint8_t row, uint8_t col);
 extern void lcd_write_command(uint8_t command);
 extern void lcd_write_string(char *string);
 extern void lcd_clear();
+extern void cal_redraw(t_cal *c);
+extern void cal_input(t_cal *c, uint8_t key);
+extern void cal_reset(t_cal *c);
 
-void cal_input(t_cal *c, uint8_t key);
-void cal_reset(t_cal *c);
-
+typedef enum
+{
+	MODE_CALULATOR = 0,
+	MODE_TIMER
+} app_mode_t;
 
 volatile uint32_t keypad_counter=0;
 volatile uint32_t msec_count = 0;
@@ -66,6 +71,7 @@ ISR(TIMER0_OVF_vect)
 int main(void)
 {
 	t_cal cal;
+	app_mode_t app_mode = MODE_CALULATOR;
 	
 	init_timer0();
 	init_uart0();
@@ -82,26 +88,58 @@ int main(void)
 	
 	
 	while (1)
-	{if (keypad_flag)
+	{
+		// BUTTON4 : CAL MODE <-> CLOCK MODE 전환 (항상 폴링)
+		if (get_button(BUTTON4, BUTTON4PIN))
 		{
-			keypad_flag = 0;
-			
-			uint8_t key = keypad_scan();      // 여기서 처리
-			if (key) insert_queue(key);
+			if (app_mode == MODE_CALULATOR)
+			{
+				app_mode = MODE_TIMER;
+				lcd_clear();
+				lcd_goto_xy(0, 0);
+				lcd_write_string("CLOCK MODE");
+				// TODO: DS1307(I2C) 드라이버 완성 후, 여기서 시간을 읽어와 표시하도록 교체
+			}
+			else
+			{
+				app_mode = MODE_CALULATOR;
+				lcd_clear();
+				lcd_goto_xy(0, 0);
+				lcd_write_string("CAL MODE");
+				_delay_ms(800);            // 잠깐 보여주고
+				lcd_clear();
+				cal_redraw(&cal);          // 이전에 입력하던 수식 / 마지막 결과를 화면에 복원 복원
+			}
 		}
 		
-		
-		if (get_button(BUTTON0, BUTTON0PIN)) insert_queue('H');   // 헥사 변환
-		if (get_button(BUTTON1, BUTTON1PIN)) insert_queue('C');   // reset
-		if (get_button(BUTTON2, BUTTON2PIN)) insert_queue('(');
-		if (get_button(BUTTON3, BUTTON3PIN)) insert_queue(')');
-		
-		if (!queue_empty())
+		if (app_mode == MODE_CALULATOR)
 		{
-			//key_value = read_queue();
-			uint8_t key = read_queue();
-			cal_input(&cal, key);
-			//printf("key_value: %c\n", key_value);
+			if (keypad_flag)
+			{
+				keypad_flag = 0;
+				
+				uint8_t key = keypad_scan();      // 여기서 처리
+				if (key) insert_queue(key);
+			}
+			
+			// 버튼은 디바운스 로직 때문에 매 루프마다 계속 폴링해야 함
+			if (get_button(BUTTON0, BUTTON0PIN)) insert_queue('H');   // 헥사 변환
+			if (get_button(BUTTON1, BUTTON1PIN)) insert_queue('C');   // reset
+			if (get_button(BUTTON2, BUTTON2PIN)) insert_queue('(');
+			if (get_button(BUTTON3, BUTTON3PIN)) insert_queue(')');
+			
+			if (!queue_empty())
+			{
+				uint8_t key = read_queue();
+				cal_input(&cal, key);
+			}
+		}
+		else // MODE_CLOCK
+		{
+			// 계산기 입력이 쌓이지 않도록 키패드 플래그만 비움 (계산 로직은 타지 않음)
+			keypad_flag = 0;
+			
+			// TODO: DS1307에서 시간을 주기적으로 읽어와 lcd_goto_xy()/lcd_write_string()으로 표시
 		}
 	}
 }
