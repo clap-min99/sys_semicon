@@ -17,7 +17,7 @@ int get_button(int button_num, int button_pin);
 // 버튼 초기화 (입력 방향)
 void init_button(void)
 {
-	BUTTON_DDR &= ~(1 << BUTTON0PIN | 1 << BUTTON1PIN | 1 << BUTTON2PIN | 1 << BUTTON3PIN);
+	BUTTON_DDR &= ~(1 << BUTTON0PIN | 1 << BUTTON1PIN | 1 << BUTTON2PIN | 1 << BUTTON3PIN | 1 << BUTTON4PIN);
 }
 
 int get_button(int button_num, int button_pin)
@@ -27,7 +27,7 @@ int get_button(int button_num, int button_pin)
 	// change_t : raw 값이 마지막으로 바뀐 시각(ms)
 	static unsigned char stable[BUTTON_NUMBER]   = { BUTTON_RELEASE, BUTTON_RELEASE, BUTTON_RELEASE, BUTTON_RELEASE };
 	static unsigned char last_raw[BUTTON_NUMBER] = { BUTTON_RELEASE, BUTTON_RELEASE, BUTTON_RELEASE, BUTTON_RELEASE };
-	static uint32_t      change_t[BUTTON_NUMBER] = { 0, 0, 0, 0 };
+	static uint32_t      change_t[BUTTON_NUMBER] = { 0, 0, 0, 0, 0 };
 	
 	// 1) 현재 핀 raw 값 
 	unsigned char raw = (BUTTON_PIN & (1 << button_pin)) ? BUTTON_PRESS : BUTTON_RELEASE;
