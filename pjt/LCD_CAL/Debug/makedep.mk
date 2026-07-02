@@ -8,6 +8,8 @@ cal.c
 
 ds1307.c
 
+i2c.c
+
 keypad.c
 
 lcd.c
