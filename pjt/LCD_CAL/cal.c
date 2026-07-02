@@ -21,8 +21,6 @@ static uint8_t check_parens(char *expr);
 void cal_main(void);
 void cal_input(t_cal *c, uint8_t key);
 void cal_reset(t_cal *c);
-void cal_input(t_cal *c, uint8_t key);
-void cal_reset(t_cal *c);
 void cal_redraw(t_cal *c);   // CLOCK 모드에서 CAL 모드로 돌아올 때 화면 다시 그리기
 
 int32_t cal_evaluate(char *expr);   
@@ -43,12 +41,17 @@ static void lcd_show_expr(t_cal *c)
 	lcd_write_string(start);
 }
 
+static uint8_t hex_mode = 0;   // 0=10진수, 1=16진수
+
 // LCD 2번째 줄(1행)에 계산 결과를 표시
 static void lcd_show_result(int32_t result)
 {
 	char resbuf[17];
 	uint8_t i;
 	
+	if (hex_mode)
+	snprintf(resbuf, sizeof(resbuf), "0x%lX", (unsigned long)result);
+	else
 	snprintf(resbuf, sizeof(resbuf), "%ld", result);
 	
 	lcd_goto_xy(1, 0);
@@ -203,6 +206,7 @@ void cal_reset(t_cal *c)
 {
 	memset(c->buf, 0, BUF_SIZE);
 	c->idx = 0;
+	hex_mode = 0;   // C 누르면 10진수 모드로 리셋
 	printf("CLEAR\n");
 	lcd_clear();
 }
@@ -269,14 +273,16 @@ void cal_input(t_cal *c, uint8_t key)
 	
 	if (key == 'H')
 	{
-		if (!last_valid)
+		hex_mode = !hex_mode;
+		
+		if (last_valid)
 		{
-			lcd_show_message("NO RESULT");
-			return;
+			lcd_show_result(last_result);   // 현재 모드에 맞춰 결과 다시 표시
 		}
-		char hexbuf[17];
-		snprintf(hexbuf, sizeof(hexbuf), "0x%lX", (unsigned long)last_result);
-		lcd_show_message(hexbuf);
+		else
+		{
+			lcd_show_message(hex_mode ? "HEX MODE" : "DEC MODE");
+		}
 		return;
 	}
 	

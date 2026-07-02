@@ -14,10 +14,12 @@
 #include "queue.h"
 #include "cal.h"
 #include "lcd.h"
+#include "ds1307.h"
 
 void init_timer0();
 extern void init_uart0();
 extern void init_keypad();
+extern void i2c_init();
 extern void UART0_transmit(uint8_t data);
 extern uint8_t keypad_scan(void);
 extern void insert_queue(uint8_t value);
@@ -33,6 +35,9 @@ extern void lcd_clear();
 extern void cal_redraw(t_cal *c);
 extern void cal_input(t_cal *c, uint8_t key);
 extern void cal_reset(t_cal *c);
+extern int ds1307_main(void);
+extern void read_time_ds1307(t_ds1307* ds1307);
+extern void read_date_ds1307(t_ds1307* ds1307);
 
 typedef enum
 {
@@ -72,12 +77,14 @@ int main(void)
 {
 	t_cal cal;
 	app_mode_t app_mode = MODE_CALULATOR;
+	uint32_t last_clock_update = 0;
 	
 	init_timer0();
 	init_uart0();
 	init_keypad();
 	init_button();
 	LCD_init();
+	i2c_init();
 	
 	cal_reset(&cal);
 	
@@ -85,7 +92,6 @@ int main(void)
 	sei();
 
 	// lcd_write_string("hello !");
-	
 	
 	while (1)
 	{
@@ -99,6 +105,9 @@ int main(void)
 				lcd_goto_xy(0, 0);
 				lcd_write_string("CLOCK MODE");
 				// TODO: DS1307(I2C) 드라이버 완성 후, 여기서 시간을 읽어와 표시하도록 교체
+				_delay_ms(800);
+				lcd_clear();
+				last_clock_update = 0;
 			}
 			else
 			{
@@ -140,6 +149,25 @@ int main(void)
 			keypad_flag = 0;
 			
 			// TODO: DS1307에서 시간을 주기적으로 읽어와 lcd_goto_xy()/lcd_write_string()으로 표시
+			if (msec_count - last_clock_update >= 1000)
+			{
+				last_clock_update = msec_count;
+				
+				t_ds1307 now;
+				read_time_ds1307(&now);
+				read_date_ds1307(&now);
+				
+				char line0[17];
+				char line1[17];
+				
+				snprintf(line0, sizeof(line0), "20%02u-%02u-%02u", now.year, now.month, now.date);
+				snprintf(line1, sizeof(line1), "%02u:%02u:%02u", now.hours, now.minutes, now.seconds);
+				
+				lcd_goto_xy(0, 0);
+				lcd_write_string(line0);
+				lcd_goto_xy(1, 0);
+				lcd_write_string(line1);
+			}
 		}
 	}
 }
