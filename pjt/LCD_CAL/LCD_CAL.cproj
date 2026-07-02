@@ -128,6 +128,12 @@
     <Compile Include="button.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="buzzer.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="buzzer.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="cal.c">
       <SubType>compile</SubType>
     </Compile>

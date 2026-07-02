@@ -39,12 +39,7 @@
 */
 
 #ifndef DS1307_H_
-#define DS1307_H_
-
-#define F_CPU 16000000UL
-
-#include <avr/io.h>
-#include <avr/interrupt.h> //sei 등의 함수
+#define DS1307_H_ //sei 등의 함수
 #include <stdio.h>
 #include <util/delay.h>
 #include <string.h>
@@ -54,6 +49,11 @@
 /* Register Address */
 #define DS1307_SEC     0x00
 #define DS1307_MIN     0x01
+
+#define F_CPU 16000000UL
+
+#include <avr/io.h>
+#include <avr/interrupt.h>
 #define DS1307_HOUR    0x02
 #define DS1307_DAY     0x03
 #define DS1307_DATE    0x04

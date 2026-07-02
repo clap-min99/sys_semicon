@@ -38,6 +38,8 @@ extern void cal_reset(t_cal *c);
 extern int ds1307_main(void);
 extern void read_time_ds1307(t_ds1307* ds1307);
 extern void read_date_ds1307(t_ds1307* ds1307);
+extern void init_buzzer(void);
+extern void buzzer_beep_for_key(uint8_t key);
 
 typedef enum
 {
@@ -85,13 +87,14 @@ int main(void)
 	init_button();
 	LCD_init();
 	i2c_init();
+	init_buzzer();
 	
 	cal_reset(&cal);
 	
 	stdout = &OUTPUT;		// printf가 동작할 수 있도록 stdout을 설정
 	sei();
 
-	// lcd_write_string("hello !");
+	lcd_write_string("hello !");
 	
 	while (1)
 	{
@@ -140,6 +143,7 @@ int main(void)
 			if (!queue_empty())
 			{
 				uint8_t key = read_queue();
+				// buzzer_beep_for_key(key);
 				cal_input(&cal, key);
 			}
 		}
