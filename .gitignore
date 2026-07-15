@@ -1,1 +1,43 @@
 microcontroller/doc/AvrStudio7/*.exe
+code_expert/C_M4_Python_툴_설치가이드/01.GCC_Compiler_for_ARM/
+
+# ============================
+# Build artifacts (ARM GCC / Makefile)
+# ============================
+*.o
+*.d
+*.elf
+*.bin
+*.hex
+*.map
+*.lst
+*.su
+*.i
+*.s.bak
+*.exe
+
+# 링커/디버그 덤프
+__dump.txt
+__dump_all.txt
+
+# ROM 이미지 (rom_0x08000000... 류)
+rom_0x*
+
+# ============================
+# 컴파일러 툴체인 (설치 프로그램, 소스 아님)
+# ============================
+**/arm-gnu-toolchain-*/
+
+# ============================
+# OS / Editor
+# ============================
+.vscode/
+.DS_Store
+Thumbs.db
+
+# ============================
+# 백업/임시 파일
+# ============================
+*~
+*.bak
+*.tmp

@@ -8,7 +8,7 @@ static void Sys_Init(int baud)
 	setvbuf(stdout, NULL, _IONBF, 0);
 }
 
-#if 1
+#if 0
 
 #define GPIOA_MODER		(*(unsigned long *)0x40020000)
 #define GPIOA_OTYPER	(*(unsigned long *)0x40020004)
@@ -22,21 +22,25 @@ void Main(void)
 	GPIOA_MODER = 0x1 << 10;
 	GPIOA_OTYPER = 0x0 << 5;
 
-	int i;
+	volatile int i;
+
+	// while(1) -> 조건식에 상수 있으면 경고 띄운다. 
+	// 무한루프는 for(;;) 로 쓰자.
 
 	for(;;)
 	{
-		GPIOA_ODR = 0x1 << 5; 
-		for(i=0; i<0x40000; i++);
+		GPIOA_ODR = 0x1 << 5;		// ON 
+		for(i=0; i<0x40000; i++);	// delay
 		
-		GPIOA_ODR = 0x0 << 5; 
+		GPIOA_ODR = 0x0 << 5; 		// OFF
 		for(i=0; i<0x40000; i++);
 	}
+
 }
 
 #endif
 
-#if 0
+#if 1
 
 #define TIMER   (*(unsigned long *)0xE000E018)
 

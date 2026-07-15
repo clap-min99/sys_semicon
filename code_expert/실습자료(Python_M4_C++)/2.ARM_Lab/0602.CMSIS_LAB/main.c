@@ -8,6 +8,21 @@ static void Sys_Init(int baud)
 	setvbuf(stdout, NULL, _IONBF, 0);
 }
 
+#if 0
+void Main(void)
+{
+	Sys_Init(115200);
+	printf("LED ON : Bit Operation - 1\n");
+
+	/* 비트 연산을 이용하여 LED를 ON하는 코드를 설계하시오 */
+	GPIOA->MODER |= 0x1 << 10;
+	GPIOA->MODER &= ~(0x1 << 11);
+	GPIOA->OTYPER &= ~(0x1 << 5);
+	GPIOA->ODR |= 0x1 << 5;
+}
+#endif
+
+#if 1
 void Main(void)
 {
 	volatile int i;
@@ -16,18 +31,20 @@ void Main(void)
 	printf("CMSIS Based Register Define\n");
 
 	// LED Pin을 출력으로 설정
-
+	GPIOA->MODER = 0x1 << 10;
+	GPIOA->OTYPER = 0x0 << 5;
 
 	for(;;)
 	{
 		// LED ON
-
+		GPIOA->ODR = 0x1 << 5;;
 
 		for(i=0; i<0x40000; i++);
 
 		// LED OFF
-
+		GPIOA->ODR = 0x0 << 5;
 
 		for(i=0; i<0x40000; i++);
 	}
 }
+#endif

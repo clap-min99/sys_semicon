@@ -1,7 +1,7 @@
 // 여기에 사용자 임의의 define을 작성하시오
-#define GPIOA_MODER		(*(unsigned int *)0x40020000)	
-#define GPIOA_OTYPER	(*(unsigned int *)0x40020004)	
-#define GPIOA_ODR		(*(unsigned int *)0x40020014)	
+#define GPIOA_MODER		(*(volatile unsigned long *)0x40020000)	
+#define GPIOA_OTYPER	(*(volatile unsigned long *)0x40020004)	
+#define GPIOA_ODR		(*(volatile unsigned long *)0x40020014)	
 
 void Main(void)
 {

@@ -1,0 +1,5 @@
+- 패키지 업데이트 : pacman –Syu
+
+- GCC 설치 : pacman -S mingw-w64-ucrt-x86_64-gcc
+
+- 환경변수 path 설정용 : C:\msys64\ucrt64\bin
