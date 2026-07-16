@@ -1,4 +1,4 @@
-#if 1
+#if 0
     #define SYSCLK	16000000
     #define HCLK	SYSCLK
     #define PCLK2	HCLK

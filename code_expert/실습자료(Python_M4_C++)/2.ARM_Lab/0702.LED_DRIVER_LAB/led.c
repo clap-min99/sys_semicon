@@ -10,11 +10,11 @@ void LED_Init(void)
 	// Macro_Set_Bit(GPIOA->MODER, 10);
 
 	Macro_Write_Block(GPIOA->OTYPER, 0x3, 0x1, 10);
-	Macro_Clear_Bit(GPIOA->OTYPER, 5); // push-pull 
+	Macro_Clear_Bit(GPIOA->OTYPER, 5); // 0: push-pull, 1: open drain  
 
 	Macro_Clear_Bit(GPIOA->ODR, 5); // 초기화
 }
-
+ 
 void LED_On(void)
 {
 	// LED On
