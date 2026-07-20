@@ -103,11 +103,12 @@ void Main(void)
 	for(;;)
 	{
 		if (Macro_Check_Bit_Clear(GPIOC->IDR, 7)) {
-		Macro_Clear_Bit(GPIOA->ODR, 5);
+		Macro_Set_Bit(GPIOA->ODR, 5);
 	}
 	else
-		(Macro_Set_Bit(GPIOA->ODR, 5));
+		(Macro_Clear_Bit(GPIOA->ODR, 5));
 	}
 	
 }
 #endif
+
