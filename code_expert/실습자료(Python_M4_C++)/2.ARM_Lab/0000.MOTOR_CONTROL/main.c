@@ -8,6 +8,7 @@ static void Sys_Init(int baud)
 	Uart2_Init(baud);
 	setvbuf(stdout, NULL, _IONBF, 0);
 	LED_Init();
+	Key_Poll_Init();
 }
 
 /* Key 인식 */
@@ -60,6 +61,7 @@ void Main(void)
 
 
 // 2. 역방향
+#if 0
 void Main(void)
 {
 	Sys_Init(115200);
@@ -77,9 +79,46 @@ void Main(void)
 	}
 }
 
+#endif
+
+
 // 3. 스위치 방향제어
-// void Main(void)
-// {
-// 	Sys_Init(115200);
-// 	Macro_Set
-// }
+#if 1
+void Main(void)
+{
+	Sys_Init(115200);
+	Macro_Set_Bit(RCC->AHB1ENR, 0);
+	Macro_Set_Bit(RCC->AHB1ENR, 2); 
+	
+	// 스위치
+	Macro_Write_Block(GPIOC->MODER, 0x3, 0x0, 14);
+	// Macro_Write_Block(GPIOC->PUPDR, 0x3, 0x1, 14);
+
+	// 모터
+	Macro_Write_Block(GPIOA->MODER, 0x3, 0x1, 0);
+	Macro_Write_Block(GPIOA->MODER, 0x3, 0x1, 2);
+	
+
+	int flag = 0;
+
+	Macro_Set_Bit(GPIOA->ODR, 0);
+	Macro_Clear_Bit(GPIOA->ODR, 1);
+
+	for(;;)
+			{
+				if(!flag && Key_Get_Pressed())
+				{
+					Macro_Clear_Bit(GPIOA->ODR, 0);   
+					Macro_Clear_Bit(GPIOA->ODR, 1); 
+					for(int i=0; i<4000; i++) {};
+
+					Macro_Set_Bit(GPIOA->ODR, 0);   
+					Macro_Clear_Bit(GPIOA->ODR, 1); 
+					
+					flag = 1;
+					break;
+				}
+			}
+
+}
+#endif
