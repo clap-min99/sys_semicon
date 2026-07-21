@@ -21,3 +21,11 @@ extern void LED_Off(void);
 // Clock.c
 
 extern void Clock_Init(void);
+
+// key.c
+
+extern void Key_Poll_Init(void);
+extern int Key_Get_Pressed(void);
+extern void Key_Wait_Key_Pressed(void);
+extern void Key_Wait_Key_Released(void);
+

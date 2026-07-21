@@ -10,7 +10,7 @@ static void Sys_Init(int baud)
 	LED_Init();
 }
 
-#if 1
+#if 0
 
 void Main(void)
 {
@@ -46,11 +46,11 @@ void Main(void)
 	for(;;)
 	{
 		LED_On();
-		TIM2_Delay(1000);
+		TIM2_Delay(5000);
 		printf(".");
 
 		LED_Off();
-		TIM2_Delay(1000);
+		TIM2_Delay(5000);
 		printf(".");
 	}
 }
@@ -78,7 +78,7 @@ void Main(void)
 
 #endif
 
-#if 0
+#if 1
 
 void Main(void)
 {

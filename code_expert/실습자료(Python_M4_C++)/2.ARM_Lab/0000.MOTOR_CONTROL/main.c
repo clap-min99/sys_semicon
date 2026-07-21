@@ -106,18 +106,31 @@ void Main(void)
 
 	for(;;)
 			{
-				if(!flag && Key_Get_Pressed())
+				if(Key_Get_Pressed())
 				{
+					Key_Wait_Key_Released();
+					
 					Macro_Clear_Bit(GPIOA->ODR, 0);   
 					Macro_Clear_Bit(GPIOA->ODR, 1); 
-					for(int i=0; i<4000; i++) {};
-
-					Macro_Set_Bit(GPIOA->ODR, 0);   
-					Macro_Clear_Bit(GPIOA->ODR, 1); 
 					
-					flag = 1;
-					break;
+					for(int i=0; i<40000; i++) {};
+
+
+					if (flag == 0) 
+					{
+						Macro_Set_Bit(GPIOA->ODR, 0);   
+						Macro_Clear_Bit(GPIOA->ODR, 1); 
+						flag = 1;
+					}
+					
+					else 
+					{
+						Macro_Set_Bit(GPIOA->ODR, 1);   
+						Macro_Clear_Bit(GPIOA->ODR, 0); 
+						flag = 0;
+					}
 				}
+				
 			}
 
 }
