@@ -46,3 +46,9 @@ void Uart2_Send_Byte(char data)
   while(!Macro_Check_Bit_Set(USART2->SR, 7));
   USART2->DR = data;
 }
+
+char Uart2_Get_Char(void)
+{
+	while(!Macro_Check_Bit_Set(USART2->SR, 5));  // RXNE=1 될 때까지 대기
+	return (char)USART2->DR;
+}

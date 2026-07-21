@@ -4,6 +4,11 @@
 #define TIM2_FREQ		(1000000./TIM2_TICK) 	// hz
 #define TIM2_1ms_Pls	(TIM2_FREQ/1000.)		// 개
 #define TIM2_MAX 		(0xFFFFU)
+
+#define TIM4_TICK 		20 						// usec
+#define TIM4_FREQ		(1000000./TIM4_TICK) 	// hz
+#define TIM4_1ms_Pls	(TIM4_FREQ/1000.)		// 개
+#define TIM4_MAX 		(0xFFFFU)
 #define INIT_ARR 		(0xFFFFU)
 
 void TIM2_Delay(int time)
@@ -122,10 +127,10 @@ void TIM4_Repeat(int time)
 	// TIM4 CR1: ARPE=0, down counter, repeat mode
 	TIM4->CR1 = (0x1<<4);	
 	// PSC(50KHz),  ARR(reload시 값) 설정
-	TIM4->PSC = (unsigned int)(TIMXCLK/TIM2_FREQ+0.5)-1;
+	TIM4->PSC = (unsigned int)(TIMXCLK/TIM4_FREQ+0.5)-1;
 
 	// ARR은 1ms 필요 펄스 * time
-	TIM4->ARR = TIM2_1ms_Pls * time;
+	TIM4->ARR = TIM4_1ms_Pls * time;
 
 	// UG 이벤트 발생
 	Macro_Set_Bit(TIM4->EGR, 0);

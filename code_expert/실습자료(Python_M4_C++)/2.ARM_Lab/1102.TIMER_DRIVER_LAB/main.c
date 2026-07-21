@@ -46,11 +46,11 @@ void Main(void)
 	for(;;)
 	{
 		LED_On();
-		TIM2_Delay(5000);
+		TIM2_Delay(1000);
 		printf(".");
 
 		LED_Off();
-		TIM2_Delay(5000);
+		TIM2_Delay(1000);
 		printf(".");
 	}
 }
@@ -78,7 +78,7 @@ void Main(void)
 
 #endif
 
-#if 1
+#if 0
 
 void Main(void)
 {
@@ -108,7 +108,7 @@ void Main(void)
 
 #endif
 
-#if 0
+#if 1
 
 void Main(void)
 {
@@ -125,6 +125,9 @@ void Main(void)
 			printf("[%d]\n", i++);
 			if(i > 20) i = 1;
 			TIM4_Change_Value(50 * i);
+		
+			i % 2 ? LED_On() : LED_Off();
+
 		}
 	}
 }

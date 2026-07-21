@@ -9,6 +9,7 @@ static void Sys_Init(int baud)
 	setvbuf(stdout, NULL, _IONBF, 0);
 	LED_Init();
 	Key_Poll_Init();
+	
 }
 
 /* Key 인식 */
@@ -91,44 +92,62 @@ void Main(void)
 	Macro_Set_Bit(RCC->AHB1ENR, 2); 
 	
 	// 스위치
-	Macro_Write_Block(GPIOC->MODER, 0x3, 0x0, 14);
+	// Macro_Write_Block(GPIOC->MODER, 0x3, 0x0, 14);
 	// Macro_Write_Block(GPIOC->PUPDR, 0x3, 0x1, 14);
 
 	// 모터
 	Macro_Write_Block(GPIOA->MODER, 0x3, 0x1, 0);
 	Macro_Write_Block(GPIOA->MODER, 0x3, 0x1, 2);
-	
 
 	int flag = 0;
-
-	Macro_Set_Bit(GPIOA->ODR, 0);
-	Macro_Clear_Bit(GPIOA->ODR, 1);
 
 	for(;;)
 			{
 				if(Key_Get_Pressed())
 				{
+					TIM4_Repeat(1000);
+					int cnt = 0;
+
+					while (Key_Get_Pressed()) 
+					{
+						if (TIM4_Check_Timeout()) 
+						{
+							cnt++;
+						}
+						if (cnt>=3) break;
+					}
+					TIM4_Stop();
+
 					Key_Wait_Key_Released();
 					
 					Macro_Clear_Bit(GPIOA->ODR, 0);   
 					Macro_Clear_Bit(GPIOA->ODR, 1); 
 					
-					for(int i=0; i<40000; i++) {};
-
-
-					if (flag == 0) 
+					if (cnt>=3)
 					{
-						Macro_Set_Bit(GPIOA->ODR, 0);   
-						Macro_Clear_Bit(GPIOA->ODR, 1); 
-						flag = 1;
+						Key_Wait_Key_Released();
 					}
-					
+
 					else 
 					{
-						Macro_Set_Bit(GPIOA->ODR, 1);   
-						Macro_Clear_Bit(GPIOA->ODR, 0); 
-						flag = 0;
+						// for(int i=0; i<40000; i++) {};
+						TIM2_Delay(500);
+
+						if (flag == 0) 
+						{
+							Macro_Set_Bit(GPIOA->ODR, 0);   
+							Macro_Clear_Bit(GPIOA->ODR, 1); 
+							flag = 1;
+						}
+						
+						else 
+						{
+							Macro_Set_Bit(GPIOA->ODR, 1);   
+							Macro_Clear_Bit(GPIOA->ODR, 0); 
+							flag = 0;
+						}
 					}
+					
 				}
 				
 			}
