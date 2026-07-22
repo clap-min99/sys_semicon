@@ -105,7 +105,7 @@ void Main(void)
 			{
 				if(Key_Get_Pressed())
 				{
-					TIM4_Repeat(1000);
+					TIM4_Repeat(100);
 					int cnt = 0;
 
 					while (Key_Get_Pressed()) 
@@ -114,7 +114,7 @@ void Main(void)
 						{
 							cnt++;
 						}
-						if (cnt>=3) break;
+						if (cnt>=30) break;
 					}
 					TIM4_Stop();
 
@@ -123,12 +123,7 @@ void Main(void)
 					Macro_Clear_Bit(GPIOA->ODR, 0);   
 					Macro_Clear_Bit(GPIOA->ODR, 1); 
 					
-					if (cnt>=3)
-					{
-						Key_Wait_Key_Released();
-					}
-
-					else 
+					if (cnt < 30)
 					{
 						// for(int i=0; i<40000; i++) {};
 						TIM2_Delay(500);

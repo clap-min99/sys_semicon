@@ -127,25 +127,58 @@ void TIM4_Change_Value(int time)
 #define TIM3_TICK					(1000000/TIM3_FREQ)	// usec
 #define TIME3_PLS_OF_1ms			(1000/TIM3_TICK)
 
+// Ch3 에 대한 init 함수
 void TIM3_Out_Init(void)
 {
-	Macro_Set_Bit(RCC->AHB1ENR, 1);
-	Macro_Set_Bit(RCC->APB1ENR, 1);
+	Macro_Set_Bit(RCC->AHB1ENR, 1);		// portB
+	Macro_Set_Bit(RCC->APB1ENR, 1);		// timer
 
-	Macro_Write_Block(GPIOB->MODER, 0x3, 0x2, 0);  	// PB0 => ALT
+	Macro_Write_Block(GPIOB->MODER, 0x3, 0x2, 0);  	// PB0 => ALT(MODER -> 10: alternate function)
 	Macro_Write_Block(GPIOB->AFR[0], 0xf, 0x2, 0); 	// PB0 => AF02
 
 	Macro_Write_Block(TIM3->CCMR2,0xff, 0x60, 0);
 	TIM3->CCER = (0<<9)|(1<<8);
 }
 
+void TIM3_Out_PWM_Generation(unsigned short freq, int duty)
+{
+	TIM3->CR1 = (0x1<<4);
+	// Timer 주파수가 TIM3_FREQ가 되도록 PSC 설정
+	TIM3->PSC = (unsigned int)(TIMXCLK/TIM3_FREQ+0.5)-1;
+
+	// 요청한 주파수가 되도록 ARR 설정
+	// TIM3->ARR = TIM3_FREQ / freq;
+	TIM3->ARR = (unsigned int)((double)TIM3_FREQ / freq + 0.5)-1;
+	
+	// Duty비 설정
+	TIM3->CCR3 = (TIM3->ARR)*((double)duty / 100.);
+	
+	// Manual Update(UG 발생)
+	Macro_Set_Bit(TIM3->EGR, 0);
+
+	// Down Counter, Repeat Mode, Timer Start
+	Macro_Set_Bit(TIM3->CR1, 0);
+
+}
+
 void TIM3_Out_Freq_Generation(unsigned short freq)
 {
+	TIM3->CR1 = (0x1<<4);
 	// Timer 주파수가 TIM3_FREQ가 되도록 PSC 설정
+	TIM3->PSC = (unsigned int)(TIMXCLK / TIM3_FREQ + 0.5)-1;
+
 	// 요청한 주파수가 되도록 ARR 설정
+	// TIM3->ARR = TIM3_FREQ / freq;
+	TIM3 -> ARR = (unsigned int)((double)TIM3_FREQ / freq + 0.5)-1;
+	
 	// Duty Rate 50%가 되도록 CCR3 설정
+	TIM3->CCR3 = (TIM3->ARR)*0.5;
+	
 	// Manual Update(UG 발생)
+	Macro_Set_Bit(TIM3->EGR, 0);
+
 	// Down Counter, Repeat Mode, Timer Start
+	Macro_Set_Bit(TIM3->CR1, 0);
 
 }
 

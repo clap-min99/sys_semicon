@@ -68,7 +68,7 @@ void TIM2_Stopwatch_Start(void)
 	
 	// ARR 초기값 설정 => 최대값 0xFFFF 설정
 	TIM2->ARR = INIT_ARR; 
-
+	
 	// UG 이벤트 발생
 	Macro_Set_Bit(TIM2->EGR, 0);
 	// TIM2 start
@@ -81,7 +81,7 @@ unsigned int TIM2_Stopwatch_Stop(void)
 
 	// TIM2 stop
 	Macro_Clear_Bit(TIM2->CR1, 0);
-	// CNT 초기 설정값 (0xffff)와 현재 CNT의 펄스수 차이를 구하고
+	// CNT 초기 설정값 (0xffffff)와 현재 CNT의 펄스수 차이를 구하고
 	// 그 펄스수 하나가 20usec이므로 20을 곱한값을 time에 저장
 	time = (INIT_ARR - (TIM2->CNT))*20;
 	// 계산된 time 값을 리턴(단위는 usec)

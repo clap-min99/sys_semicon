@@ -5,6 +5,20 @@
 #include <stdlib.h>
 #include <ctype.h>
 
+// tera term에서 입력하는 글자 읽어오기
+char Uart2_Get_Pressed(void)
+{
+	if(Macro_Check_Bit_Set(USART2->SR, 5))
+	{
+		return (char)USART2->DR;
+	}
+
+	else
+	{
+		return (char)0;
+	}
+}
+
 void Uart2_Init(int baud)
 {
   double div;
