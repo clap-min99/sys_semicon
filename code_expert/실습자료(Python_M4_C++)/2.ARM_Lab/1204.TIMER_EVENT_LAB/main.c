@@ -33,7 +33,7 @@ void Main(void)
 			printf("KEY Pressed!!!\n");
 			Key_Pressed = 0;
 		}
-
+		
 		if(Uart_Data_In)
 		{
 			printf("RX Data = %c\n", Uart_Data);

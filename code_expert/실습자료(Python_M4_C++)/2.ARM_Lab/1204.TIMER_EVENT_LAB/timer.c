@@ -14,8 +14,8 @@ void TIM2_Stopwatch_Start(void)
 {
 	Macro_Set_Bit(RCC->APB1ENR, 0);
 
-	TIM2->CR1 = (1<<4)|(1<<3);
-	TIM2->PSC = (unsigned int)(TIMXCLK/50000.0 + 0.5)-1;
+	TIM2->CR1 = (1<<4)|(1<<3);									// 
+	TIM2->PSC = (unsigned int)(TIMXCLK/50000.0 + 0.5)-1;		// 분주 0->1/1->2/..../65536분주
 	TIM2->ARR = TIM2_MAX;
 
 	Macro_Set_Bit(TIM2->EGR,0);
@@ -26,10 +26,11 @@ unsigned int TIM2_Stopwatch_Stop(void)
 {
 	unsigned int time;
 
-	Macro_Clear_Bit(TIM2->CR1, 0);
-	time = (TIM2_MAX - TIM2->CNT) * TIM2_TICK;
+	Macro_Clear_Bit(TIM2->CR1, 0);					// TIM2->CR1 : CEN, counter enable
+	time = (TIM2_MAX - TIM2->CNT) * TIM2_TICK;		// 현재 시간(?) = (최대 시간 - 현재 counter(흐른시간))
 	return time;
 }
+
 
 /* Delay Time Max = 65536 * 20use = 1.3sec */
 
@@ -102,10 +103,10 @@ void TIM4_Repeat(int time)
 
 int TIM4_Check_Timeout(void)
 {
-	if(Macro_Check_Bit_Set(TIM4->SR, 0))
+	if(Macro_Check_Bit_Set(TIM4->SR, 0))	// 업데이트 발생시
 	{
-		Macro_Clear_Bit(TIM4->SR, 0);
-		return 1;
+		Macro_Clear_Bit(TIM4->SR, 0);		// 클리어후 // TIM4->SR, 0 은 UIF(Update Interrupt Flag)
+		return 1;							// 1 return
 	}
 	else
 	{
@@ -128,6 +129,7 @@ void TIM4_Repeat_Interrupt_Enable(int en, int time)
 	if(en)
 	{
 		// TIM4 Clock On
+		Macro_Set_Bit(RCC->APB1ENR, 2);
 
 		TIM4->CR1 = (1<<4)|(0<<3);
 		TIM4->PSC = (unsigned int)(TIMXCLK/(double)TIM4_FREQ + 0.5)-1;
@@ -135,13 +137,15 @@ void TIM4_Repeat_Interrupt_Enable(int en, int time)
 		Macro_Set_Bit(TIM4->EGR,0);
 
 		// TIM4 Pending Clear
+		Macro_Clear_Bit(TIM4->SR, 0);  
 		// NVIC Pending Clear
-
+		NVIC_ClearPendingIRQ(30);
 		// TIM4 Interrupt Enable
+		Macro_Set_Bit(TIM4->DIER, 0);
 		// NVIC Interrupt Enable
-
+		NVIC_EnableIRQ(30);
 		// TIM4 Start
-
+		Macro_Set_Bit(TIM4->CR1, 0);
 	}
 
 	else

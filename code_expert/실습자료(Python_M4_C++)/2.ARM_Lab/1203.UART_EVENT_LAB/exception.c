@@ -25,7 +25,10 @@ extern volatile unsigned char Uart_Data;
 void USART2_IRQHandler(void)
 {
 	// 수신된 데이터는 Uart_Data에 저장
+	Uart_Data = USART2->DR;
 	// Uart_Data_In Flag Setting
+	Uart_Data_In = 1;
+	// 수신 버퍼 읽으면 자동으로 clear 됨 
 	// NVIC Pending Clear
-
+	NVIC_ClearPendingIRQ(38);
 }

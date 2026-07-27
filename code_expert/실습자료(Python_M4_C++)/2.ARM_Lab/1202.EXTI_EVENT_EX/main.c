@@ -18,6 +18,7 @@ void Main(void)
 	printf("\nEvent Driven KEY Interrupt Test\n");
 
 	Key_ISR_Enable(1);
+	Key_Pressed = 0;
 
 	for(;;)
 	{
@@ -27,9 +28,9 @@ void Main(void)
 			Key_Pressed = 0;
 		}
 
-		LED_On();
-		TIM2_Delay(500);
-		LED_Off();
-		TIM2_Delay(500);
+		// LED_On();
+		// TIM2_Delay(500);
+		// LED_Off();
+		// TIM2_Delay(500);
 	}
 }

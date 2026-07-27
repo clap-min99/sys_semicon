@@ -123,7 +123,7 @@ void TIM4_Change_Value(int time)
 	TIM4->ARR = TIME4_PLS_OF_1ms * time;
 }
 
-#define TIM3_FREQ					(8000000)			// Hz
+#define TIM3_FREQ					(80000000)			// Hz
 #define TIM3_TICK					(1000000/TIM3_FREQ)	// usec
 #define TIME3_PLS_OF_1ms			(1000/TIM3_TICK)
 

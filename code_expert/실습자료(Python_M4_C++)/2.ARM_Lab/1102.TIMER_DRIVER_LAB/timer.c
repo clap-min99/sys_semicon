@@ -1,16 +1,23 @@
 #include "device_driver.h"
 
-#define TIM2_TICK 		20 						// usec
-#define TIM2_FREQ		(1000000./TIM2_TICK) 	// hz
-#define TIM2_1ms_Pls	(TIM2_FREQ/1000.)		// 개
+#define TIM2_TICK 		20 						// usec		Timer Counter Clock = TIMXCLK / (PSC)
+#define TIM2_FREQ		(1000000./TIM2_TICK) 	// hz		// TIM2_FREQ = 50000 (1초에 50000틱) → 1ms(=1/1000초) 동안 필요한 틱 수 = 50000/1000 = 50
+#define TIM2_1ms_Pls	(TIM2_FREQ/1000.)		// 1ms 동안 필요한 펄스(틱) 개수
 #define TIM2_MAX 		(0xFFFFU)
 
 #define TIM4_TICK 		20 						// usec
-#define TIM4_FREQ		(1000000./TIM4_TICK) 	// hz
+#define TIM4_FREQ		(1000000./TIM4_TICK) 	// hz 
 #define TIM4_1ms_Pls	(TIM4_FREQ/1000.)		// 개
 #define TIM4_MAX 		(0xFFFFU)
 #define INIT_ARR 		(0xFFFFU)
 
+/*
+원하는 tick 시간(분해능) 정하기 → 예: 20us
+PSC 계산: PSC = TIMXCLK / 목표주파수 - 1 (반올림 위해 +0.5, 나누기 정의상 -1)
+ARR 계산: ARR = 원하는 시간 / tick시간 = "몇 틱을 세어야 하는가"
+ARR이 타이머 비트수(16비트=65535)를 넘으면 → 몫만큼 최댓값으로 반복 + 나머지 한 번으로 쪼개기
+EGR에 UG 비트 세팅(레지스터 리로드 강제 적용) → SR의 pending flag 클리어 → CR1 Start
+*/
 void TIM2_Delay(int time)
 {
 	Macro_Set_Bit(RCC->APB1ENR, 0);
@@ -21,13 +28,13 @@ void TIM2_Delay(int time)
 	TIM2->PSC = (unsigned int)(TIMXCLK/TIM2_FREQ+0.5)-1;
 
 	unsigned int pls = TIM2_1ms_Pls * time;
-	int n = pls / TIM2_MAX;
-	int m = pls % TIM2_MAX;
+	int n = pls / TIM2_MAX;			// ARR 최대치를 몇 번 꽉 채워야 하는지
+	int m = pls % TIM2_MAX;			// 마지막에 남는 나머지 틱수
 	int i;
 	
 	for(i=0; i<n; i++)
 	{
-		TIM2->ARR = TIM2_MAX;
+		TIM2->ARR = TIM2_MAX;		// ARR: 몇 틱을 세어야 원하는 시간이 되는가
 		Macro_Set_Bit(TIM2->EGR,0);
 		Macro_Clear_Bit(TIM2->SR, 0);
 		Macro_Set_Bit(TIM2->CR1, 0);

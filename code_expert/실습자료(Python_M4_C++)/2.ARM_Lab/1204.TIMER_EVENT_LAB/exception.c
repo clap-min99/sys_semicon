@@ -23,7 +23,7 @@ extern volatile int Uart_Data_In;
 extern volatile unsigned char Uart_Data;
 
 void USART2_IRQHandler(void)
-{
+{  
 	Uart_Data = (unsigned char)USART2->DR;
 	Uart_Data_In = 1;
 	NVIC_ClearPendingIRQ(38);
@@ -34,7 +34,8 @@ extern volatile int TIM4_Expired;
 void TIM4_IRQHandler(void)
 {
 	// TIM4 Interrupt Pending Clear
+	Macro_Clear_Bit(TIM4->SR, 0);  
 	// NVIC Pending Clear
-	
+	NVIC_ClearPendingIRQ(38);
 	TIM4_Expired = 1;
 }
