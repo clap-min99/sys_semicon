@@ -5,6 +5,10 @@
 #include <stdlib.h>
 #include <ctype.h>
 
+#define RX_SIZE  64
+static volatile char rx_buf[RX_SIZE];
+static volatile int rx_head, rx_tail;
+
 void Uart2_Init(int baud)
 {
   double div;
@@ -47,6 +51,14 @@ void Uart2_Send_Byte(char data)
   USART2->DR = data;
 }
 
+int Uart2_Get_Byte(char *pc)                     // 0 = 없음, 1 = 받음
+{
+    if(rx_head == rx_tail) return 0;
+    *pc = rx_buf[rx_tail];
+    rx_tail = (rx_tail + 1) % RX_SIZE;
+    return 1;
+}
+
 char Uart2_Get_Char(void)
 {
 	while(!Macro_Check_Bit_Set(USART2->SR, 5));  // RXNE=1 될 때까지 대기
@@ -65,3 +77,20 @@ char Uart2_Get_Pressed(void)
 		return (char)0;
 	}
 }
+
+
+void Uart2_RX_Interrupt_Enable(int en)
+{
+  if(en)
+  {
+    Macro_Set_Bit(USART2->CR1, 5);
+    NVIC_ClearPendingIRQ(38);
+    NVIC_EnableIRQ(38);
+  }
+  else
+  {
+    Macro_Clear_Bit(USART2->CR1, 5);
+    NVIC_DisableIRQ(38);
+  }
+}
+

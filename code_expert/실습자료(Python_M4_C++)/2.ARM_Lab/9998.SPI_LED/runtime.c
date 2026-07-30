@@ -34,26 +34,7 @@ int _write(int file, char *ptr, int len)
 
 int _read(int file, char *ptr, int len) 
 { 
-	int i;
-
-	for (i = 0; i < len; i++)
-	{
-		char c = Uart2_Get_Char();   // USART2에서 한 바이트 수신
-
-		if (c == '\r') c = '\n';     // 엔터(CR)를 LF로 변환
-
-		Uart2_Send_Byte(c);          // 에코 
-
-		*ptr++ = c;
-
-		if (c == '\n')              
-		{
-			i++;
-			break;
-		}
-	}
-
-	return i;
+	return 0; 
 }
 
 int _lseek(int file, int ptr, int dir)  

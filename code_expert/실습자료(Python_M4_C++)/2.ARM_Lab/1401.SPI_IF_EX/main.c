@@ -29,7 +29,7 @@ void Main(void)
 		{
 			data = ~(1u << i);
 			SPI1_SC16IS752_Write_GPIO(data);
-			printf("LED[%d] ON, Value = 0x%.2X\n", i, (unsigned char)data);
+			// printf("LED[%d] ON, Value = 0x%.2X\n", i, (unsigned char)data);
 			for(j = 0; j < 1000000; j++);
 		}
 	}

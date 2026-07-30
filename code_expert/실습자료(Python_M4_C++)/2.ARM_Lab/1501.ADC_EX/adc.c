@@ -31,11 +31,11 @@ int ADC1_Get_Status(void)
 
 	if(r)
 	{
-		Macro_Clear_Bit(ADC1->SR, 1);
+		Macro_Clear_Bit(ADC1->SR, 1);		// pending clear                                                                                                                               
 		Macro_Clear_Bit(ADC1->SR, 4);
 	}
 
-	return r;
+	return r; 	
 }
 
 int ADC1_Get_Data(void)

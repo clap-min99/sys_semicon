@@ -1,9 +1,8 @@
-#define SYSCLK	96000000
+#define SYSCLK  96000000
 #define HCLK	SYSCLK
 #define PCLK2	HCLK
 #define PCLK1	HCLK/2
 #define TIMXCLK ((HCLK == PCLK1)?(PCLK1):(PCLK1*2))
-
 
 #define RAM_START	0x20000000
 #define RAM_END		0x20020000
@@ -13,4 +12,3 @@
 #define STACK_LIMIT	(HEAP_LIMIT + 8)
 #define STACK_BASE	(RAM_END + 1)
 #define STACK_SIZE	(STACK_BASE - STACK_LIMIT)
-
