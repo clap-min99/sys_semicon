@@ -3,9 +3,8 @@
 
 #define GAMMA(v)   (((v) * (v)) >> 8)
 
-
-volatile unsigned char Uart_Data=0;
-volatile int Uart_Data_In=0;
+static unsigned char frame[12];
+static unsigned char hue = 0;
 
 static void Sys_Init(int baud) 
 {
@@ -15,9 +14,6 @@ static void Sys_Init(int baud)
 	setvbuf(stdout, NULL, _IONBF, 0);
 	LED_Init();
 }
-
-static unsigned char frame[12];
-static unsigned char hue = 0;
 
 void Animation_Step(void)
 {
@@ -49,7 +45,6 @@ void Hue_To_RGB(unsigned char h, unsigned char *r, unsigned char *g, unsigned ch
         default:*r = 255;       *g = 0;         *b = 255 - rem; break;
     }
 }
-
  
 
 void Main(void)
