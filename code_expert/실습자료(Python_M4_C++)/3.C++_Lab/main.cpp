@@ -54,7 +54,7 @@ int main()
 	x = 5, y = 10;
 	your::x = 100, your::y = 200;
 	std::cout << your::func(x, y) << std::endl;
-
+	// std::cout << your::func(your:: x, your::y) << std::endl;
 	return 0;
 }
 #endif
@@ -89,7 +89,8 @@ namespace your
 int main()
 {
 	using namespace my;
-
+	// global에 선언되어 있으면 오류가 날 수 있다.
+	// local 우선하지 않음
 	x = 10, y = 20;
 	your::x = 100, your::y = 200;
 	std::cout << func(x, y) << std::endl;
@@ -127,11 +128,11 @@ namespace your
 
 int main()
 {
-	using my::x;
+	using my::x;	// 내 namespace에 선언
 	using my::y;
 
-	my::x = 10, y = 20;
-	std::cout << my::func(x, y) << std::endl;
+	my::x = 10, y = 20;							
+	std::cout << my::func(x, y) << std::endl;	// 
 
 	return 0;
 }
@@ -144,7 +145,8 @@ int main()
 #if 0
 #include <iostream>
 #include <cstdio>
-
+// #include <stdio.h> -> 얘랑 같이 쓰면 printf는 C++의 printf가 쓰임(scope 연산자(::)가 없어도 std 지정.)
+// global 보다 std가 우선하기 때문
 using namespace std;
 
 int main()
@@ -193,7 +195,7 @@ using namespace std;
 int main()
 {
 	int x;
-
+	// 실수 값 받고 싶으면 float x; 라고 정의해주면 된다. 입력받을 때 알아서 정수 or 실수 출력해준다.
 	cout << "정수 값 입력 ";
 	cin >> x;
 	cout << "입력은 " << x << " 입니다" << endl;
@@ -282,6 +284,7 @@ int main()
 
 #if 0
 #include <iostream>
+#include <string>
 using namespace std;
 
 int main()
@@ -289,15 +292,21 @@ int main()
 	double d;
 	char s[20];
 
+	string str;
+
 	cout << "실수 값 입력 ";
 	cin >> d;
 	cout << d << endl;
 	
 	cin.ignore();
-
+	
 	cout << "두 단어 입력(Hello World)" << endl;
 	cin.getline(s, 20);
 	cout << s << endl;
+
+	cout << "string 사용 두 단어 입력(Hello World)" << endl;
+	getline(cin, str);
+	cout << str << endl;
 
 	return 0;
 }
@@ -319,19 +328,21 @@ struct st
 
 int main()
 {
-	int a = 0b1010;
-	int b(20);
-	int c{ 30 };
+	// 아래 세가지 방법으로 변수 초기화 가능하다.
+	int a = 0b1010;		
+	// int a = 1.5; -> 자동 형변환 됨
+	int b(20);				// int class 이용한 instance 생성
+	int c{ 30 };			// 단일 값도 집합형 타입 initializer 가능
 
-	cout << a << endl;
+	cout << a << endl;		
 	cout << b << endl;
 	cout << c << endl;
 
-	int d[2] = { 40,50 };
-	int e[2]{ 60,70 };
+	int d[2] = { 40,50 };	// 이것도 되고
+	int e[2]{ 60,70 };		// 이것도 됨
 
-	struct st f = { 80, 'A' };
-	st g{ 90, 'B' };
+	struct st f = { 80, 'A' };	
+	st g{ 90, 'B' };			// 구조체 변수 선언 시 struct 생략 가능
 
 	cout << d[1] << endl;
 	cout << e[1] << endl;
@@ -353,7 +364,7 @@ int f1(int a, int b = 10, int c = 20)
 	return a + b + c;
 }
 
-int f2(int x, int y = 10, int z = 20);
+int f2(int x, int y = 10, int z = 20);	// 함수 선언을 먼저한 경우 선언부에만 default 사용
 
 int main()
 {
@@ -368,7 +379,7 @@ int main()
 	return 0;
 }
 
-int f2(int xx, int yy, int zz)
+int f2(int xx, int yy, int zz)	// 선언부에 default 썼으니까 정의에는 못씀. 
 {
 	return xx + yy + zz;
 }
@@ -402,6 +413,11 @@ double f(double x, double y)
 	return x + y;
 }
 
+double f(int x, double y)
+{
+	return x + y;
+}
+
 int main()
 {
 	cout << f(10) << endl;
@@ -417,7 +433,26 @@ int main()
 /***********************************************************/
 // [1-12] Parameter 타입의 Template 지정
 /***********************************************************/
+#if 0
+#include <iostream>
+using namespace std;
 
+template<typename T1, typename T2>
+auto func(T1 a, T2 b)
+{
+	return a*b;
+}
+
+int main()
+{
+	cout << func(3 ,5) << endl;
+	cout << func(3.2 ,5) << endl;
+	cout << func(3, 5.7) << endl;
+	cout << func(3.2 ,5.2) << endl;
+	return 0;
+}
+
+#endif
 #if 0
 #include <iostream>
 using namespace std;
@@ -571,9 +606,9 @@ int main()
 {
 	int a[4] = { 1,2,3,4 };
 
-	f1(a[0]);
-	f2(a);
-	f3(a[2]);
+	f1(a[0]);	// x call by value -> 값을 복사하여 전달. 원본을 고칠 수 없다.
+	f2(a);		// *p call by address -> 주소값을 전달 받는다. 원본 고칠수 있으나 주소 접근 -> 연산이므로 간접 연산
+	f3(a[2]);	// &r call by reference -> a[2] 공간 공유. 원본 고칠수 있음. 간접연산 아니라서 속도 빠름
 
 	cout << a[0] << endl;
 	cout << a[1] << endl;
@@ -602,7 +637,7 @@ int main()
 		cout << a[i] << endl;
 	}
 
-	for (int x : a)
+	for (int x : a)		// 차례대로 하나씩 전달 해줌. 1 2 3 4 차례대로 출력
 	{
 		cout << x << endl;
 	}
@@ -615,7 +650,7 @@ int main()
 // [1-18] auto 타입, bool 타입
 /***********************************************************/
 
-#if 0
+#if 1
 #include <iostream>
 using namespace std;
 
@@ -637,6 +672,11 @@ int main()
 	cout << c << ":" << d << endl;
 
 	for (const auto &x : f)
+	{
+		cout << x << endl;
+	}
+	
+	for (const auto x : f)
 	{
 		cout << x << endl;
 	}
