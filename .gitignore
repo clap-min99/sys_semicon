@@ -45,3 +45,49 @@ Thumbs.db
 *.nul
 
 nul
+
+# ===== Qt Creator 빌드 디렉토리 =====
+build-*/
+build-*-Desktop-*/
+
+# ===== qmake 관련 =====
+*.qmake.stash
+Makefile
+Makefile.*
+*.pro.user
+*.pro.user.*
+
+# ===== Qt moc/uic/rcc 자동 생성 파일 =====
+moc_*.cpp
+moc_*.h
+ui_*.h
+qrc_*.cpp
+*.moc
+
+# ===== 오브젝트/컴파일 결과물 =====
+*.o
+*.obj
+*.exe
+*.out
+*.a
+*.lib
+*.dll
+*.so
+*.dylib
+
+# ===== Qt Creator 설정 폴더 =====
+.qtcreator/
+*.autosave
+
+# ===== Windows 관련 문제 파일 =====
+nul
+con
+prn
+aux
+
+# ===== 일반적인 IDE/OS 캐시 =====
+.vscode/
+.vs/
+*.suo
+.DS_Store
+Thumbs.db
