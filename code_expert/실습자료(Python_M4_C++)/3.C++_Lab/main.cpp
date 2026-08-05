@@ -1146,7 +1146,7 @@ void mart_calc::buy(int price)
 {
 	total += price;
 }
-
+ 
 int main(void)
 {
 	mart_calc calc1(10);
@@ -1762,7 +1762,7 @@ int main(void)
 // [2-24-1] class member pointer 및 member pointer 연산자
 /***********************************************************/
 
-#if 2
+#if 0
 #include <iostream>
 using namespace std;
 
@@ -1997,21 +1997,21 @@ public:
 int main()
 {
 	B x;
-	cout << x.a << endl;
-	cout << x.b << endl;
-	cout << x.c << endl;
+	cout << x.a << endl;	// public
+	cout << x.b << endl;	// protected 
+	cout << x.c << endl;	// private
 	x.f();
 
-	C y;
-	cout << y.a << endl;
-	cout << y.b << endl;
-	cout << y.c << endl;
+	C y;	
+	cout << y.a << endl;	// protected 
+	cout << y.b << endl;	// protected
+	cout << y.c << endl;	// private
 	y.f();
 
 	D z;
-	cout << z.a << endl;
-	cout << z.b << endl;
-	cout << z.c << endl;
+	cout << z.a << endl;	// private
+	cout << z.b << endl;	// private
+	cout << z.c << endl;	// private
 	z.f();
 
 	return 0;
@@ -2270,7 +2270,8 @@ public:
 	int passenger;
 };
 
-void prt_price(truck *p)
+//void prt_price(truck *p)
+void prt_price(car *p)
 {
 	cout << p->price << endl;
 }
@@ -2544,7 +2545,13 @@ public:
 	}
 };
 
-class C : public A, public B { };
+class C : public A, public B {
+public:
+	void func()
+	{
+		cout << "C" << endl;
+	}
+ };
 
 int main()
 {
@@ -3296,7 +3303,7 @@ int main()
 // [4-11] 멤버 함수에 의한 Operator Overloading
 /***********************************************************/
 
-#if 0
+#if 1
 #include <iostream>
 using namespace std;
 

@@ -1,3 +1,4 @@
+// 문제 1
 #if 0
 #include <iostream>
 using namespace std;
@@ -22,6 +23,7 @@ void mart_calc::change_tax(double tax)
 {
 	// class의 private 변수 tax를 전달 받은 값으로 변경
 	mart_calc::tax = tax;
+	// this -> tax = tax;
 }
 
 int main(void)
@@ -45,6 +47,7 @@ int main(void)
 }
 #endif
 
+// 문제 2
 #if 0
 #include <iostream>
 using namespace std;
@@ -81,6 +84,7 @@ int main(void)
 }
 #endif
 
+// 문제 3
 #if 0
 #include <iostream>
 using namespace std;
@@ -102,16 +106,18 @@ int main(void)
 
 	// &x로 초기화를 하는 포인터 p 선언
 	test *p = &x;
-	
+	// test *p(&x);
+
 	cout << x.a << endl;
 
 	// 포인터 p를 이용하여 instance x의 a값 인쇄
 	cout << (*p).a << endl;
-
+	// cout << p->a << endl;
 	return 0;
 }
 #endif
 
+// 문제 4
 #if 0
 #include <iostream>
 using namespace std;
@@ -131,9 +137,9 @@ int main(void)
 {
 	// test class의 instance 2개를 갖는 배열 y를 선언하고 
 	// 두 instance의 초기화 값으로 10, 20이 전달 되도록 하라.
-	test y[2] {10, 20};
+	test y[2] {test(10), test(20)}; 
+	// test y[2] {10, 20};
 	
-
 
 	// 배열 y의 요소 instance 들의 멤버 데이터 a를 인쇄하는 코드를 작성하라.
 	cout << y[0].a << endl;
@@ -143,6 +149,7 @@ int main(void)
 }
 #endif
 
+// 문제 5
 #if 0
 #include <iostream>
 using namespace std;
@@ -181,6 +188,7 @@ int main(void)
 }
 #endif
 
+// 문제 6
 #if 0
 #include <iostream>
 using namespace std;
