@@ -650,7 +650,7 @@ int main()
 // [1-18] auto 타입, bool 타입
 /***********************************************************/
 
-#if 1
+#if 0
 #include <iostream>
 using namespace std;
 
@@ -684,6 +684,7 @@ int main()
 	return 0;
 }
 #endif
+
 
 /***********************************************************/
 // [2-1-1] Procedural Oriented Programming 방식
@@ -897,6 +898,8 @@ void mart_calc::buy(int price)
 void mart_calc::change_tax(double tax)
 {
 	// class의 private 변수 tax를 전달 받은 값으로 변경
+	mart_calc::tax = tax;
+	// this->tax = tax;
 
 }
 
@@ -1086,6 +1089,16 @@ public:
 
 // member function buy 설계
 
+void mart_calc::buy(int price)
+{
+	total += price * (1 + tax);
+}
+
+void mart_calc::buy(int price, double tax)
+{
+	total += price * (1 + tax);
+}
+
 int main(void)
 {
 	mart_calc calc1;
@@ -1223,7 +1236,7 @@ public:
 
 int main(void)
 {
-	buf x();
+	buf x;
 	buf y;
 	buf z(10);
 
@@ -1393,7 +1406,7 @@ int main(void)
 }
 #endif
 
-/***********************************************************/
+/**********************************************                                                                                                                                                                                                                                                                                                                                                                                                             *************/
 // [2-16] 정적 멤버 => static member function(class 함수)
 /***********************************************************/
 
@@ -1455,13 +1468,13 @@ int main(void)
 #include <iostream>
 using namespace std;
 
-int g = 10;
+int g = 10; 	// 전역 변수
 
 class A 
 {
 public:
-	static int s;
-	int i;
+	static int s;	// class 변수: 모든 instance에서 호출
+	int i;			// instance 내 method에서 공통 호출
 
 	A(int n): i(n) {}
 
@@ -1527,15 +1540,15 @@ int main(void)
 	int b = 100;
 	int c(200);
 
-	A d;
-	A e(500);
-	A f = A(1000);
+	A d;		// xx = 3 / A::x=4
+	A e(500, 600);	// xx = 500 /x = 501
+	A f = A(1000);	// xx = 1000 / A::x = 1001
 
-	cout << b << endl;
+	cout << b << endl;		
 	cout << c << endl;
 	cout << d.x << endl;
-	cout << e.x << endl;
-	cout << f.x << endl;
+	cout << e.y << endl;
+	cout << f.y << endl;
 
 	return 0;
 }
@@ -1555,11 +1568,7 @@ public:
 	const int age;
 	const char * name;
 
-	student(int a, const char * n)
-	{
-		age = a;
-		name = n;
-	}
+	student(int a, const char * n): age(a), name(n) {}
 };
 
 int main(void)
@@ -1573,6 +1582,35 @@ int main(void)
 }
 #endif
 
+
+#if 0
+#include <iostream>
+using namespace std;
+
+class student
+{
+public:
+	const int age;
+	int &ref;
+	// 생성자:변수(값) {}
+
+	student(int a, const char * n)
+	{
+		age = a;	// const라서 불가 
+		name = n;	// ref 변수 초기화 없어서 오류
+	}
+};
+
+int main(void)
+{
+	student x(10, "KIM");
+
+	cout << x.age << endl;
+	cout << x.name << endl;
+
+	return 0;
+}
+#endif
 /***********************************************************/
 // [2-20] 상수 멤버 함수(Const Member Function)
 /***********************************************************/
@@ -1687,7 +1725,7 @@ int main(void)
 
 #if 0
 #include <iostream>
-using namespace std;
+using namespace std; 
 
 template <typename T> class mart_calc
 {
@@ -1724,7 +1762,7 @@ int main(void)
 // [2-24-1] class member pointer 및 member pointer 연산자
 /***********************************************************/
 
-#if 0
+#if 2
 #include <iostream>
 using namespace std;
 
@@ -1738,6 +1776,13 @@ int main(void)
 {
 	A a;
 	a.p = 10;
+
+	// int *ptr = &a.p;
+	// cout << *ptr << endl;
+
+	// *ptr = 20;
+	// cout << a.p << endl;
+
 
 	int A::* pp = &A::p;
 
