@@ -373,7 +373,7 @@ int main()
 #endif
 
 // 8번 문제
-#if 1
+#if 0
 #include <iostream>
 using namespace std;
 
