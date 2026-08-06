@@ -16,9 +16,11 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_helloBtn_clicked();
+    void Print_Hello();
+    void Print_World();
+    // void on_helloBtn_clicked();
 
-    void on_worldBtn_clicked();
+    // void on_worldBtn_clicked();
 
 private:
     Ui::MainWindow *ui;
