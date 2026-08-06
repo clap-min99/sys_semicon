@@ -13,3 +13,16 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+
+void MainWindow::on_helloBtn_clicked()
+{
+    ui -> chMessage -> setText("Hello");
+}
+
+
+
+void MainWindow::on_worldBtn_clicked()
+{
+    ui -> chMessage -> setText("World");
+}
+

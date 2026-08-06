@@ -373,7 +373,7 @@ int main()
 #endif
 
 // 8번 문제
-#if 0
+#if 1
 #include <iostream>
 using namespace std;
 
@@ -404,7 +404,8 @@ public:
 void prt_height(const figure &x)
 {
 	// 전달받은 r의 reference를 이용하여 r의 height 인쇄
-    cout <<  << endl;
+	// downcasting
+	cout << ((rectagle &)x).height << endl;
 }
 
 int main()

@@ -6,6 +6,9 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    // connect(ui->clearBtn, SIGNAL(clicked()), ui -> hellolbl, SLOT(clear()));
+    connect(ui->clearBtn, &QPushButton::clicked, ui->hellolbl, &QLabel::clear);
 }
 
 MainWindow::~MainWindow()

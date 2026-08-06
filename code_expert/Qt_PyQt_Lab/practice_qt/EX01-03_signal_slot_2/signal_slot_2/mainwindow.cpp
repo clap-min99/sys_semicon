@@ -13,3 +13,8 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::on_btnClear_clicked()
+{
+    ui->lblHello->clear();
+}
+
