@@ -269,6 +269,13 @@ int main()
 
 // 6번 문제
 #if 0
+/*
+주어진 코드에서 prt_info 함수 내부를 다음 요구사항을 만족하도록 완성하라.
+'요구 사항'
+
+figure의 derived class 주소가 전달된 경우 color_index와 width를 인쇄한다.
+단, rectagle의 주소가 전달된 경우는 추가적으로 height도 인쇄한다.
+*/
 #include <iostream>
 using namespace std;
 
@@ -373,7 +380,11 @@ int main()
 #endif
 
 // 8번 문제
-#if 1
+#if 0
+/*
+주어진 코드에서 prt_height 함수를 설계하라.
+전달받은 class의 reference를 이용하여 rectagle class의 멤버 데이터인 height 값을 인쇄해야 한다.
+*/
 #include <iostream>
 using namespace std;
 
@@ -404,7 +415,6 @@ public:
 void prt_height(const figure &x)
 {
 	// 전달받은 r의 reference를 이용하여 r의 height 인쇄
-	// downcasting
 	cout << ((rectagle &)x).height << endl;
 }
 

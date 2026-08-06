@@ -398,14 +398,94 @@ int main()
 }
 #endif
 
-// 문제 8
-#if 0 
+// 8번 문제
+#if 0
+/*
+주어진 코드에서 +, * 연산자의 overloading 함수를 아래 요구사항에 맞게 설계하라.
+'요구 사항'
+
+box class 타입과 정수의 + 연산 : width, height를 각각 정수만큼씩 더한 결과로 만든 box class 반환
+box class 타입끼리의 + 연산 : 두 instance의 width, height를 각각 더한 결과로 만든 box class 반환 즉, x의 width와 y의 width, x의 height와 y의 height를 더한 결과를 갖는 box class 반환
+box class 타입의 * 연산(여기서 *은 곱하기가 아닌 단항 연산자 *임) : 전달 받은 box class 타입의 instance의 width와 height를 곱한 결과를 정수형으로 반환
+*/
+#include <iostream>
+using namespace std;
+
+class figure
+{
+public:
+	int color_index;
+
+	figure(int c) : color_index(c) {};
+};
+
+class square : public figure
+{
+public:
+	int width;
+
+	square(int c, int w) : figure(c), width(w) {};
+};
+
+class rectagle : public square
+{
+public:
+	int height;
+	
+	rectagle(int c, int w, int h) : square(c, w), height(h) {}
+};
+
+void prt_height(const figure &x)
+{
+	// 전달받은 r의 reference를 이용하여 r의 height 인쇄
+	// downcasting
+	cout << ((rectagle &)x).height << endl;
+}
+
+int main()
+{
+	rectagle r(2, 20, 30);
+
+	prt_height(r);
+
+	return 0;
+}
 #endif
 
-// 문제 9
-#if 0 
+
+// 9번 문제
+#if 1
+/*
+주어진 코드를 실행하면 두 줄의 인쇄 결과가 서로 다르게 나온다.
+이것은 << 연산자 overloading 함수에서 myout 타입을 리턴하므로 발생하는 문제이다.
+두 번째 인쇄에서도 첫 번째 인쇄 결과와 같은 결과가 나올 수 있도록 operator<< 함수를 수정하라.
+참고로, << 연산의 결과로 전달된 원본 myout 타입의 n이 갱신되어야 한다.
+*/
+#include <iostream>
+using namespace std;
+
+class myout
+{
+public:
+	int n;
+
+	myout(int in = 0) : n(in) {}
+
+	myout& operator<<(int m)
+	{
+		this->n += m;
+		return *this;
+	}
+};
+
+int main()
+{
+	myout x;
+	
+	cout << (x << 10 << 20 << 30).n << endl;
+	cout << x.n << endl;
+
+	return 0;
+}
 #endif
-
-
-
 
