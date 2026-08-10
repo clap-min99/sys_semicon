@@ -19,7 +19,7 @@ private slots:
 
     void on_tbRadioFirst_toggled(bool checked);
 
-    void on_tbRedioSecond_toggled(bool checked);
+    void on_tbRadioSecond_toggled(bool checked);
 
     void on_tbRadioThird_toggled(bool checked);
 

@@ -17,9 +17,9 @@
    <widget class="QLabel" name="lblResult">
     <property name="geometry">
      <rect>
-      <x>9</x>
-      <y>9</y>
-      <width>16</width>
+      <x>10</x>
+      <y>20</y>
+      <width>431</width>
       <height>19</height>
      </rect>
     </property>
@@ -30,16 +30,16 @@
      <string>0</string>
     </property>
     <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
     </property>
    </widget>
    <widget class="QPushButton" name="btnEqual">
     <property name="geometry">
      <rect>
-      <x>358</x>
-      <y>57</y>
-      <width>80</width>
-      <height>22</height>
+      <x>377</x>
+      <y>60</y>
+      <width>75</width>
+      <height>24</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -66,14 +66,17 @@
     <property name="text">
      <string>=</string>
     </property>
+    <attribute name="buttonGroup">
+     <string notr="true">buttonGroup</string>
+    </attribute>
    </widget>
    <widget class="QPushButton" name="btnMinus">
     <property name="geometry">
      <rect>
-      <x>184</x>
-      <y>179</y>
-      <width>80</width>
-      <height>22</height>
+      <x>195</x>
+      <y>188</y>
+      <width>75</width>
+      <height>24</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -82,40 +85,49 @@
     <property name="text">
      <string>-</string>
     </property>
+    <attribute name="buttonGroup">
+     <string notr="true">btnGrpDisp</string>
+    </attribute>
    </widget>
    <widget class="QPushButton" name="btnPoint">
     <property name="geometry">
      <rect>
-      <x>98</x>
-      <y>179</y>
-      <width>80</width>
-      <height>22</height>
+      <x>104</x>
+      <y>188</y>
+      <width>75</width>
+      <height>24</height>
      </rect>
     </property>
     <property name="text">
      <string>.</string>
     </property>
+    <attribute name="buttonGroup">
+     <string notr="true">btnGrpDisp</string>
+    </attribute>
    </widget>
    <widget class="QPushButton" name="btn0">
     <property name="geometry">
      <rect>
-      <x>12</x>
-      <y>179</y>
-      <width>80</width>
-      <height>22</height>
+      <x>13</x>
+      <y>188</y>
+      <width>75</width>
+      <height>24</height>
      </rect>
     </property>
     <property name="text">
      <string>0</string>
     </property>
+    <attribute name="buttonGroup">
+     <string notr="true">btnGrpDisp</string>
+    </attribute>
    </widget>
    <widget class="QPushButton" name="btnPlus">
     <property name="geometry">
      <rect>
-      <x>270</x>
-      <y>149</y>
-      <width>80</width>
-      <height>22</height>
+      <x>286</x>
+      <y>156</y>
+      <width>75</width>
+      <height>24</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -124,53 +136,65 @@
     <property name="text">
      <string>+</string>
     </property>
+    <attribute name="buttonGroup">
+     <string notr="true">btnGrpDisp</string>
+    </attribute>
    </widget>
    <widget class="QPushButton" name="btn2">
     <property name="geometry">
      <rect>
-      <x>98</x>
-      <y>149</y>
-      <width>80</width>
-      <height>22</height>
+      <x>104</x>
+      <y>156</y>
+      <width>75</width>
+      <height>24</height>
      </rect>
     </property>
     <property name="text">
      <string>2</string>
     </property>
+    <attribute name="buttonGroup">
+     <string notr="true">btnGrpDisp</string>
+    </attribute>
    </widget>
    <widget class="QPushButton" name="btn3">
     <property name="geometry">
      <rect>
-      <x>184</x>
-      <y>149</y>
-      <width>80</width>
-      <height>22</height>
+      <x>195</x>
+      <y>156</y>
+      <width>75</width>
+      <height>24</height>
      </rect>
     </property>
     <property name="text">
      <string>3</string>
     </property>
+    <attribute name="buttonGroup">
+     <string notr="true">btnGrpDisp</string>
+    </attribute>
    </widget>
    <widget class="QPushButton" name="btn1">
     <property name="geometry">
      <rect>
-      <x>12</x>
-      <y>149</y>
-      <width>80</width>
-      <height>22</height>
+      <x>13</x>
+      <y>156</y>
+      <width>75</width>
+      <height>24</height>
      </rect>
     </property>
     <property name="text">
      <string>1</string>
     </property>
+    <attribute name="buttonGroup">
+     <string notr="true">btnGrpDisp</string>
+    </attribute>
    </widget>
    <widget class="QPushButton" name="btnMul">
     <property name="geometry">
      <rect>
-      <x>270</x>
-      <y>119</y>
-      <width>80</width>
-      <height>22</height>
+      <x>286</x>
+      <y>124</y>
+      <width>75</width>
+      <height>24</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -179,66 +203,81 @@
     <property name="text">
      <string>*</string>
     </property>
+    <attribute name="buttonGroup">
+     <string notr="true">btnGrpDisp</string>
+    </attribute>
    </widget>
    <widget class="QPushButton" name="btn5">
     <property name="geometry">
      <rect>
-      <x>98</x>
-      <y>119</y>
-      <width>80</width>
-      <height>22</height>
+      <x>104</x>
+      <y>124</y>
+      <width>75</width>
+      <height>24</height>
      </rect>
     </property>
     <property name="text">
      <string>5</string>
     </property>
+    <attribute name="buttonGroup">
+     <string notr="true">btnGrpDisp</string>
+    </attribute>
    </widget>
    <widget class="QPushButton" name="btn4">
     <property name="geometry">
      <rect>
-      <x>12</x>
-      <y>119</y>
-      <width>80</width>
-      <height>22</height>
+      <x>13</x>
+      <y>124</y>
+      <width>75</width>
+      <height>24</height>
      </rect>
     </property>
     <property name="text">
      <string>4</string>
     </property>
+    <attribute name="buttonGroup">
+     <string notr="true">btnGrpDisp</string>
+    </attribute>
    </widget>
    <widget class="QPushButton" name="btn6">
     <property name="geometry">
      <rect>
-      <x>184</x>
-      <y>119</y>
-      <width>80</width>
-      <height>22</height>
+      <x>195</x>
+      <y>124</y>
+      <width>75</width>
+      <height>24</height>
      </rect>
     </property>
     <property name="text">
      <string>6</string>
     </property>
+    <attribute name="buttonGroup">
+     <string notr="true">btnGrpDisp</string>
+    </attribute>
    </widget>
    <widget class="QPushButton" name="btn9">
     <property name="geometry">
      <rect>
-      <x>184</x>
-      <y>89</y>
-      <width>80</width>
-      <height>22</height>
+      <x>195</x>
+      <y>92</y>
+      <width>75</width>
+      <height>24</height>
      </rect>
     </property>
     <property name="text">
      <string>9</string>
     </property>
+    <attribute name="buttonGroup">
+     <string notr="true">btnGrpDisp</string>
+    </attribute>
    </widget>
    <widget class="QPushButton" name="btnDiv">
     <property name="geometry">
      <rect>
-      <x>270</x>
-      <y>89</y>
-      <width>80</width>
-      <height>22</height>
+      <x>286</x>
+      <y>92</y>
+      <width>75</width>
+      <height>24</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -247,40 +286,49 @@
     <property name="text">
      <string>/</string>
     </property>
+    <attribute name="buttonGroup">
+     <string notr="true">btnGrpDisp</string>
+    </attribute>
    </widget>
    <widget class="QPushButton" name="btn8">
     <property name="geometry">
      <rect>
-      <x>98</x>
-      <y>89</y>
-      <width>80</width>
-      <height>22</height>
+      <x>104</x>
+      <y>92</y>
+      <width>75</width>
+      <height>24</height>
      </rect>
     </property>
     <property name="text">
      <string>8</string>
     </property>
+    <attribute name="buttonGroup">
+     <string notr="true">btnGrpDisp</string>
+    </attribute>
    </widget>
    <widget class="QPushButton" name="btn7">
     <property name="geometry">
      <rect>
-      <x>12</x>
-      <y>89</y>
-      <width>80</width>
-      <height>22</height>
+      <x>13</x>
+      <y>92</y>
+      <width>75</width>
+      <height>24</height>
      </rect>
     </property>
     <property name="text">
      <string>7</string>
     </property>
+    <attribute name="buttonGroup">
+     <string notr="true">btnGrpDisp</string>
+    </attribute>
    </widget>
    <widget class="QPushButton" name="btnBackspace">
     <property name="geometry">
      <rect>
-      <x>12</x>
-      <y>59</y>
-      <width>80</width>
-      <height>22</height>
+      <x>13</x>
+      <y>60</y>
+      <width>75</width>
+      <height>24</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -289,14 +337,17 @@
     <property name="text">
      <string>&lt;-</string>
     </property>
+    <attribute name="buttonGroup">
+     <string notr="true">buttonGroup</string>
+    </attribute>
    </widget>
    <widget class="QPushButton" name="btnOpen">
     <property name="geometry">
      <rect>
-      <x>184</x>
-      <y>59</y>
-      <width>80</width>
-      <height>22</height>
+      <x>195</x>
+      <y>60</y>
+      <width>75</width>
+      <height>24</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -305,14 +356,17 @@
     <property name="text">
      <string>(</string>
     </property>
+    <attribute name="buttonGroup">
+     <string notr="true">btnGrpDisp</string>
+    </attribute>
    </widget>
    <widget class="QPushButton" name="btnClose">
     <property name="geometry">
      <rect>
-      <x>270</x>
-      <y>59</y>
-      <width>80</width>
-      <height>22</height>
+      <x>286</x>
+      <y>60</y>
+      <width>75</width>
+      <height>24</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -321,14 +375,17 @@
     <property name="text">
      <string>)</string>
     </property>
+    <attribute name="buttonGroup">
+     <string notr="true">btnGrpDisp</string>
+    </attribute>
    </widget>
    <widget class="QPushButton" name="btnCancel">
     <property name="geometry">
      <rect>
-      <x>98</x>
-      <y>59</y>
-      <width>80</width>
-      <height>22</height>
+      <x>104</x>
+      <y>60</y>
+      <width>75</width>
+      <height>24</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -337,6 +394,9 @@
     <property name="text">
      <string>C</string>
     </property>
+    <attribute name="buttonGroup">
+     <string notr="true">buttonGroup</string>
+    </attribute>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -345,7 +405,7 @@
      <x>0</x>
      <y>0</y>
      <width>504</width>
-     <height>19</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
@@ -353,4 +413,8 @@
  </widget>
  <resources/>
  <connections/>
+ <buttongroups>
+  <buttongroup name="buttonGroup"/>
+  <buttongroup name="btnGrpDisp"/>
+ </buttongroups>
 </ui>

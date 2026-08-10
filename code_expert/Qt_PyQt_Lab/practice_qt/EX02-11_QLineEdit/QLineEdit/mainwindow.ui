@@ -47,6 +47,9 @@ QGroupBox::title {
        <height>22</height>
       </rect>
      </property>
+     <property name="text">
+      <string>dfasdfadsf</string>
+     </property>
     </widget>
     <widget class="QLineEdit" name="lineSet">
      <property name="geometry">
@@ -119,6 +122,9 @@ QGroupBox::title {
        <height>22</height>
       </rect>
      </property>
+     <property name="text">
+      <string>dddf</string>
+     </property>
     </widget>
     <widget class="QPushButton" name="btmDisplayText">
      <property name="geometry">
@@ -180,7 +186,7 @@ QGroupBox::title {
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>19</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

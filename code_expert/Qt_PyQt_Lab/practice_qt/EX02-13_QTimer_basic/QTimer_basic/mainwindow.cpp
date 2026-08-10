@@ -21,6 +21,8 @@ void MainWindow::timeTick()
     static int toggle;
     QString str = QTime::currentTime().toString("HH:mm:ss");
     ui->lblDigitClock->setText(str);
+    ui->lblRedLED->setStyleSheet("background-color: black");
+    ui->lblGreenLED->setStyleSheet("background-color: green");
     if(toggle++ % 2 == 0) {
         ui->lblRedLED->setStyleSheet("background-color: red");
         ui->lblGreenLED->setStyleSheet("background-color: black");

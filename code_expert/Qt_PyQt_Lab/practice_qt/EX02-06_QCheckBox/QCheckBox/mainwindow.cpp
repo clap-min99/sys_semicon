@@ -51,7 +51,10 @@ void MainWindow::process_stateChanged(void)
     }
 
     ui->lblMsg->setText(msg);
+
 }
+
+
 
 void MainWindow::on_chkC_stateChanged(int arg1)
 {

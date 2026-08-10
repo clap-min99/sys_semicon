@@ -365,7 +365,7 @@ int f1(int a, int b = 10, int c = 20)
 }
 
 int f2(int x, int y = 10, int z = 20);	// 함수 선언을 먼저한 경우 선언부에만 default 사용
-
+`
 int main()
 {
 	cout << f1(10, 100, 200) << endl;
@@ -631,6 +631,9 @@ using namespace std;
 int main()
 {
 	int a[4] = { 1,2,3,4 };
+
+	cout<< "sizeof(a)" << sizeof(a) << endl;
+	cout<< "sizeof(a[0])" << sizeof(a[0]) << endl;
 
 	for (int i = 0; i < sizeof(a) / sizeof(a[0]); i++)
 	{
@@ -1665,7 +1668,7 @@ public:
 
 	student(int a) : age(a) {}
 
-	int func()
+	int func() 
 	{
 		cout << age << endl;
 		return age;
@@ -1676,7 +1679,7 @@ int main(void)
 {
 	const student x(10);
 
-	x.age = 20;
+	// x.age = 20;
 	int r = x.func();
 
 	cout << r << endl;
@@ -3303,7 +3306,7 @@ int main()
 // [4-11] 멤버 함수에 의한 Operator Overloading
 /***********************************************************/
 
-#if 1
+#if 0
 #include <iostream>
 using namespace std;
 

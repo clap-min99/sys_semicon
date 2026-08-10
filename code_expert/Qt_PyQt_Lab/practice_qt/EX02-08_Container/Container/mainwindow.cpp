@@ -22,7 +22,7 @@ void MainWindow::on_tbRadioFirst_toggled(bool checked)
 }
 
 
-void MainWindow::on_tbRedioSecond_toggled(bool checked)
+void MainWindow::on_tbRadioSecond_toggled(bool checked)
 {
     if(checked == true) {
         ui->lblMsg->setText("Tool Box > Grade > Second");

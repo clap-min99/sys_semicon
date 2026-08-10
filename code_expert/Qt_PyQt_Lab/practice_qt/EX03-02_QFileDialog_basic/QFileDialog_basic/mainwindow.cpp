@@ -19,7 +19,12 @@ void MainWindow::on_btnGetOpenFile_clicked()
     QString filename = QFileDialog::getOpenFileName(
                 this, "Open File", "/home/willtek", "all (*.*);; text (*.txt)");
     if(filename.isNull()) return;
+    QString s = QFileInfo(filename).fileName();
     ui->lblOpenFileName->setText(filename);
+
+    QString dir = QFileDialog::getExistingDirectory(this, "캡션", "/home/wiltek");
+    // qDebug() << dir;
+
 }
 
 
