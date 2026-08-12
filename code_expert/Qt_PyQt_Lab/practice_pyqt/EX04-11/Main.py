@@ -1,6 +1,6 @@
 import sys ,subprocess, re
 
-from PyQt5.QtWidgets import QMainWindow, QApplication
+from PyQt5.QtWidgets import QMainWindow, QApplication, QMessageBox
 
 GUI_FILE_NAME = 'gui'
 subprocess.run([
@@ -51,9 +51,10 @@ class Form(QMainWindow, Ui_MainWindow):
         try:
             result = eval(self.expr)
             
-        except (SyntaxError, ZeroDivisionError):
+        except (SyntaxError, ZeroDivisionError) as e:
             self.expr = ''
-            self.lblDisp.setText('Error')
+            QMessageBox.critical(self, type(e).__name__, str(e))
+            # self.lblDisp.setText('Error')
             return
         except Exception:
             self.lblDisp.setText('Error Unknown')
