@@ -23,7 +23,7 @@ protected:
 private slots:
     void handle_data(const QImage &image);
 
-    void on_btnTackAPicture_clicked();
+    void on_btnTakeAPicture_clicked();
 
 private:
     Ui::MainWindow *ui;

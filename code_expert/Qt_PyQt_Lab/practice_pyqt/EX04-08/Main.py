@@ -16,6 +16,9 @@ class Form(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        pixmap = QPixmap(':/newPrefix/야돈.jpg')
+        self.label.setPixmap(pixmap)
+        self.label.resize(pixmap.size())
 
 
 if __name__ == '__main__':

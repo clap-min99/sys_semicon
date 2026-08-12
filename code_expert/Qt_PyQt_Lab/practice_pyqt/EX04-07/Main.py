@@ -16,7 +16,15 @@ class Form(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.btnHello.clicked.connect(self.Hello)
+        self.btnWorld.clicked.connect(self.World)
+    
+    def Hello(self):
+        self.label.setText("Hello")   
+    
 
+    def World(self):
+        self.label.setText("World")   
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

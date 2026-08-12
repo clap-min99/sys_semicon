@@ -44,9 +44,9 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 void MainWindow::move_block(int inc_x, int inc_y)
 {
     if(inc_x < 0 && pos_x == 0) return;
-    if(inc_x > 0 && pos_x == 80) return;
+    if(inc_x > 0 && pos_x == 480) return;
     if(inc_y < 0 && pos_y == 0) return;
-    if(inc_y > 0 && pos_y == 80) return;
+    if(inc_y > 0 && pos_y == 480) return;
     pos_x += inc_x;
     pos_y += inc_y;
     ui->lblBlock->move(pos_x, pos_y);

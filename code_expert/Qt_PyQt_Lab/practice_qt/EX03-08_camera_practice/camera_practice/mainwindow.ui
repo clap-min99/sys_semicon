@@ -33,7 +33,7 @@
      <string/>
     </property>
    </widget>
-   <widget class="QPushButton" name="btnTackAPicture">
+   <widget class="QPushButton" name="btnTakeAPicture">
     <property name="geometry">
      <rect>
       <x>160</x>

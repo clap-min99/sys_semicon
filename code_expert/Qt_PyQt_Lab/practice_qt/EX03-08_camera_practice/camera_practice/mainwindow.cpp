@@ -40,6 +40,9 @@ void MainWindow::handle_data(const QImage &image) {
     // 2. 영상을 출력할 라벨(lblImg)이 안전하게 존재한다면 이미지를 라벨에 셋팅
     if (ui->lblImg) {
         ui->lblImg->setPixmap(pixmap);
+        // if (take_picture){
+        //  take_picture = false;
+        //}
     }
 }
 
@@ -57,11 +60,11 @@ void MainWindow::closeEvent(QCloseEvent *event) {
     // 창 닫기 이벤트를 수락하여 프로그램을 최종적으로 종료시킴
     event->accept();
 }
-void MainWindow::on_btnTackAPicture_clicked()
+void MainWindow::on_btnTakeAPicture_clicked()
 {
     if (m_last_frame.isNull()) return;
 
-    QString dirPath = "/home/willtek/Pictures/";
+    QString dirPath = "D:/temp/";
     QDir().mkpath(dirPath);   // 폴더 없으면 생성
 
     m_photo_count++;

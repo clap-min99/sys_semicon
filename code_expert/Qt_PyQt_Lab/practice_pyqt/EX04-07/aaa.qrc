@@ -1,0 +1,8 @@
+<RCC>
+  <qresource prefix="icon">
+    <file>야돈야돈.png</file>
+    <file>border.png</file>
+    <file>pattern.png</file>
+    <file>setting.png</file>
+  </qresource>
+</RCC>
