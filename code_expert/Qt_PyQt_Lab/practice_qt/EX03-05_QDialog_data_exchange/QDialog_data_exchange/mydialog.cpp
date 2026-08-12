@@ -54,4 +54,3 @@ void MyDialog::on_btnCancel_clicked()
 {
     reject();
 }
-

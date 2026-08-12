@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QPixmap>
+#include <QDir>
 
 // ============================================================================
 // MainWindow 생성자 (초기화 및 시작)
@@ -31,6 +32,8 @@ MainWindow::~MainWindow() {
 // 실시간 이미지 출력 슬롯 함수 (CameraThread에서 시그널을 보낼 때마다 실행)
 // ============================================================================
 void MainWindow::handle_data(const QImage &image) {
+    m_last_frame = image;
+
     // 1. 스레드로부터 받은 QImage를 화면 출력용 클래스인 QPixmap으로 변환
     QPixmap pixmap = QPixmap::fromImage(image);
 
@@ -39,6 +42,7 @@ void MainWindow::handle_data(const QImage &image) {
         ui->lblImg->setPixmap(pixmap);
     }
 }
+
 
 // ============================================================================
 // 윈도우 창 닫기 이벤트 핸들러 (X 버튼을 누르거나 프로그램을 종료할 때 실행)
@@ -53,3 +57,20 @@ void MainWindow::closeEvent(QCloseEvent *event) {
     // 창 닫기 이벤트를 수락하여 프로그램을 최종적으로 종료시킴
     event->accept();
 }
+void MainWindow::on_btnTackAPicture_clicked()
+{
+    if (m_last_frame.isNull()) return;
+
+    QString dirPath = "/home/willtek/Pictures/";
+    QDir().mkpath(dirPath);   // 폴더 없으면 생성
+
+    m_photo_count++;
+    QString fileName = dirPath + QString("img_%1.jpg").arg(m_photo_count, 4, 10, QChar('0'));
+    m_last_frame.save(fileName, "JPG");
+
+    QPixmap thumb = QPixmap::fromImage(m_last_frame)
+                        .scaled(ui->lblPicture->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    ui->lblPicture->setPixmap(thumb);
+
+}
+
