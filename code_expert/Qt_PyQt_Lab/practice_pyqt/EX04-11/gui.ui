@@ -6,15 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>419</width>
-    <height>235</height>
+    <width>449</width>
+    <height>254</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>계산기</string>
   </property>
   <property name="toolButtonStyle">
-   <enum>Qt::ToolButtonIconOnly</enum>
+   <enum>Qt::ToolButtonStyle::ToolButtonIconOnly</enum>
   </property>
   <property name="animated">
    <bool>false</bool>
@@ -45,7 +45,6 @@
        <font>
         <family>굴림</family>
         <pointsize>20</pointsize>
-        <weight>50</weight>
         <italic>false</italic>
         <bold>false</bold>
        </font>
@@ -54,16 +53,16 @@
        <string notr="true">font: 20pt &quot;굴림&quot;;</string>
       </property>
       <property name="frameShape">
-       <enum>QFrame::Panel</enum>
+       <enum>QFrame::Shape::Panel</enum>
       </property>
       <property name="frameShadow">
-       <enum>QFrame::Sunken</enum>
+       <enum>QFrame::Shadow::Sunken</enum>
       </property>
       <property name="text">
        <string>0</string>
       </property>
       <property name="alignment">
-       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
       </property>
      </widget>
     </item>
@@ -477,7 +476,7 @@ background-color: rgb(255, 255, 127);</string>
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="btnGroupDisp"/>
   <buttongroup name="btnGroupOp"/>
+  <buttongroup name="btnGroupDisp"/>
  </buttongroups>
 </ui>

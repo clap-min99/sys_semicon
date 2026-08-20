@@ -42,7 +42,7 @@ class Dlg(QDialog, Ui_MyDialog):
 
     def okClick(self):
         l = []
-        if self.chkFishing.isChecked():l.append('Fishig')
+        if self.chkFishing.isChecked():l.append('Fishing')
         if self.chkSurfing.isChecked():l.append('Surfing')
         if self.chkTraveling.isChecked():l.append('Traveling')
         # Todo : Dialog 사용자 시그널 방출
