@@ -92,6 +92,11 @@ aux
 .DS_Store
 Thumbs.db
 
+*.zip
+*.csv
+files/
+EOF
+
 code_expert/AI_ML/상공회의소_KDT_실습자료(딥러닝_CNN)/02.DL(CNN)_Files/RPS_Dataset.zip
 code_expert/AI_ML/젯슨_오린나노_툴_설치가이드_V2/PowerShell-7.6.2-win-x64.msi
 code_expert/AI_ML/젯슨_오린나노_툴_설치가이드_V2/torch_whl/
