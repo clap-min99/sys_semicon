@@ -1,0 +1,1 @@
+cmd_/home/aidl/work/embeded_linux/practice/EX06-02_hello/modules.order := {   echo /home/aidl/work/embeded_linux/practice/EX06-02_hello/hello.ko; :; } | awk '!x[$$0]++' - > /home/aidl/work/embeded_linux/practice/EX06-02_hello/modules.order

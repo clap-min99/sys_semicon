@@ -1,0 +1,1 @@
+cmd_/home/aidl/work/embeded_linux/practice/EX06-02_hello/Module.symvers := sed 's/\.ko$$/\.o/' /home/aidl/work/embeded_linux/practice/EX06-02_hello/modules.order | scripts/mod/modpost -m   -o /home/aidl/work/embeded_linux/practice/EX06-02_hello/Module.symvers -e -i Module.symvers   -T -

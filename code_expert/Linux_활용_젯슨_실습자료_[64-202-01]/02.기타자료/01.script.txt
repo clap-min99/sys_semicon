@@ -1,0 +1,135 @@
+##################################
+정적 라이브러리 생성
+##################################
+
+# 라이브러리 생성
+cd lib
+aarch64-linux-gnu-gcc -c plus.c minus.c
+aarch64-linux-gnu-ar crv libmycal.a plus.o minus.o
+aarch64-linux-gnu-nm libmycal.a
+cd ..
+
+# 라이브러리 사용
+aarch64-linux-gnu-gcc -o mycalStatic1 main.c lib/libmycal.a
+aarch64-linux-gnu-gcc -o mycalStatic2 main.c -Llib -lmycal
+aarch64-linux-gnu-gcc -o mycalStatic3 main.c -Llib -lmycal --static
+ls -l
+
+# 동작 확인
+./mycalStatic1
+
+##################################
+공유 라이브러리 생성
+##################################
+
+# 라이브러리 생성
+cd lib
+aarch64-linux-gnu-gcc -c -fPIC plus.c minus.c
+aarch64-linux-gnu-gcc -shared -Wl,-soname,libmycal.so.1 -o libmycal.so.1.2 plus.o minus.o
+ln -s libmycal.so.1.2 libmycal.so.1
+ln -s libmycal.so.1.2 libmycal.so
+cd ..
+
+# 라이브러리 사용
+aarch64-linux-gnu-gcc -o mycalDynamic main.c lib/libmycal.so.1.2
+aarch64-linux-gnu-gcc -o mycalDynamic main.c lib/libmycal.so.1
+aarch64-linux-gnu-gcc -o mycalDynamic main.c lib/libmycal.so
+aarch64-linux-gnu-gcc -o mycalDynamic main.c -Llib -lmycal
+
+# 동작 확인
+./mycalDynamic
+
+# 동적 링커가 soname 파일을 찾는 방법
+## 방법1
+mkdir /home/aidl/work/lib
+cp -a lib/libmycal* /home/aidl/work/lib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/aidl/work/lib
+export LD_LIBRARY_PATH
+./mycalDynamic
+unset LD_LIBRARY_PATH
+./mycalDynamic
+	
+## 방법2	
+sudo cp -a lib/libmycal* /lib
+./mycalDynamic
+sudo rm /lib/libmycal*
+./mycalDynamic
+	
+## 방법3 (vim 삭제)	
+# /etc/ld.so.conf 수정
+---------------------------------
+include /etc/ld.so.conf.d/*.conf
+/home/aidl/work/lib
+---------------------------------
+sudo ldconfig
+./mycalDynamic
+# /etc/ld.so.conf 수정
+---------------------------------
+include /etc/ld.so.conf.d/*.conf
+---------------------------------
+sudo ldconfig
+./mycalDynamic
+
+##################################
+버퍼 드라이버 구현
+##################################
+
+sudo mknod /dev/mydev0 c 120 0
+sudo mknod /dev/mydev1 c 120 1
+sudo mknod /dev/mydev2 c 120 2
+sudo mknod /dev/mydev3 c 120 3
+
+sudo insmod devtest.ko device_minor_count=2 buf_size=10
+sudo ./apptest /dev/mydev0 W 123456
+sudo ./apptest /dev/mydev0 W 123456
+sudo ./apptest /dev/mydev0 W 123456
+sudo ./apptest /dev/mydev0 R 6
+sudo ./apptest /dev/mydev0 R 6
+sudo ./apptest /dev/mydev0 R 6
+sudo ./apptest /dev/mydev0 W 123456
+sudo ./apptest /dev/mydev0 I 2
+sudo ./apptest /dev/mydev0 I 1
+sudo ./apptest /dev/mydev0 I 2
+sudo ./apptest /dev/mydev0 W 123456
+sudo ./apptest /dev/mydev0 I 2
+sudo rmmod devtest
+
+##################################
+핀11과 핀36을 GPIO 용도로 설정 
+##################################
+sudo /opt/nvidia/jetson-io/jetson-io.py
+
+##################################
+리눅스 커널의 DT 예시 
+##################################
+
+# 현재 시스템의 DT 읽어오기
+cd ~/work
+sudo dtc -I fs -O dts -o extracted.dts /proc/device-tree
+
+##################################
+디바이스 트리 활용 (DT 수정)
+##################################
+
+# ~/work/extracted.dts에 아래와 같이 my_pdev 노드 추가
+
+	my_pdev@2212880 {
+		compatible = "my-pdev";
+		reg = <0x0 0x02212880 0x0 0x20>;
+		interrupt-parent = <0xf3>;
+		interrupts = <133 2>;
+		led_status = <0>;
+	};
+
+# extracted.dts를 컴파일하여 modified.dtb 생성
+dtc -I dts -O dtb -o modified.dtb extracted.dts
+
+# modified.dtb를 /boot로 복사
+sudo cp modified.dtb /boot/modified.dtb
+
+# 부팅 시 적용할 DT 변경
+
+		FDT /boot/modified.dtb
+
+# 재부팅
+sudo reboot

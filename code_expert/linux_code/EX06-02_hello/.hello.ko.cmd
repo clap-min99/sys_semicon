@@ -1,0 +1,1 @@
+cmd_/home/aidl/work/embeded_linux/practice/EX06-02_hello/hello.ko := ld -r -EL  -maarch64elf -z noexecstack --build-id=sha1  -T scripts/module.lds -o /home/aidl/work/embeded_linux/practice/EX06-02_hello/hello.ko /home/aidl/work/embeded_linux/practice/EX06-02_hello/hello.o /home/aidl/work/embeded_linux/practice/EX06-02_hello/hello.mod.o;  true

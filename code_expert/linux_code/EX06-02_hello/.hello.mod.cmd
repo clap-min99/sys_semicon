@@ -1,0 +1,1 @@
+cmd_/home/aidl/work/embeded_linux/practice/EX06-02_hello/hello.mod := printf '%s\n'   hello.o | awk '!x[$$0]++ { print("/home/aidl/work/embeded_linux/practice/EX06-02_hello/"$$0) }' > /home/aidl/work/embeded_linux/practice/EX06-02_hello/hello.mod
