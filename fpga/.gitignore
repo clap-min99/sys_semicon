@@ -1,0 +1,26 @@
+# Local documentation dependencies
+.tools/
+__pycache__/
+# Vivado generated files
+.Xil/
+*.cache/
+*.runs/
+*.sim/
+*.hw/
+*.ip_user_files/
+*.gen/
+xsim.dir/
+build/
+*.log
+*.jou
+*.str
+*.pb
+*.wdb
+*.vcd
+*.bit
+*.bin
+*.dcp
+*.rpt
+# Existing course handouts (keep locally)
+/*.pdf
+/*.pptx
